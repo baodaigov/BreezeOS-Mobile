@@ -5,5 +5,5 @@ export default function BatteryLevel({ className }){
 
     let batteryPercent = Math.round(batteryState.level * 100);
 
-    return <p className={className}>{batteryPercent}%</p>
+    return <>{isNaN(batteryPercent) ? <p className={className}>-</p> : <p className={className}>{batteryPercent}%</p>}</>
 }

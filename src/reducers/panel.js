@@ -10,7 +10,6 @@ const panelSlice = createSlice({
     reducers: {
         setPanelActive: (state, action) => {
             state.active = action.payload;
-            console.log('wrwelrkewkrwmrklewrt')
         }
     }
 });

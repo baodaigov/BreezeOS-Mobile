@@ -1,0 +1,14 @@
+.range {
+    @apply appearance-none h-7 bg-gray-900 rounded-full w-full overflow-hidden transition-all duration-150;
+
+    &::-webkit-slider-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 28px;
+        height: 28px;
+        background: #83aaff;
+        border-radius: 999px;
+        border: 0;
+        box-shadow: -210px 0 0 195px #83aaff;
+    }
+}
