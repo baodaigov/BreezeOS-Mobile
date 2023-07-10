@@ -1,5 +1,5 @@
 .range {
-    @apply appearance-none h-7 bg-gray-900 rounded-full w-full overflow-hidden transition-all duration-150;
+    @apply appearance-none h-7 bg-gray-200 dark:bg-gray-900 rounded-full w-full overflow-hidden transition-all duration-150;
 
     &::-webkit-slider-thumb {
         appearance: none;

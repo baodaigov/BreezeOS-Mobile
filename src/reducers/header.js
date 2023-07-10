@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    style: 'text-gray-100'
+    style: 'text-gray-100 transition-all duration-200'
 }
 
 const headerSlice = createSlice({
