@@ -41,7 +41,7 @@ export default function Panel(){
     }
 
     return (
-        <div className={twMerge('text-xs bg-white/95 backdrop-blur-sm absolute bottom-full z-20 py-4 px-6 pb-0 flex flex-col justify-between h-full text-gray-800 dark:bg-gray-950/90 dark:text-gray-50 transition-all duration-200', panelActive && 'bottom-0')}>
+        <div className={twMerge('text-xs bg-white/95 backdrop-blur-sm absolute bottom-[100vh] z-20 py-4 px-6 pb-0 flex flex-col justify-between h-full text-gray-800 dark:bg-gray-950/90 dark:text-gray-50 transition-all duration-200', panelActive && 'bottom-0')}>
             <div className='flex flex-col'>
                 <div className='flex justify-between items-center w-full'>
                     <div className='flex items-center'>
