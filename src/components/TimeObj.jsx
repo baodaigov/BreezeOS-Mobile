@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function Time({ className }){
+export default function TimeObj({ className }){
     const [curTime, setCurTime] = useState(null);
 
     useEffect(() => {

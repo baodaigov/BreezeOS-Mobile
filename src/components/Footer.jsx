@@ -1,21 +1,28 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { FiCircle, FiMenu } from 'react-icons/fi';
-import { HiOutlineChevronLeft } from 'react-icons/hi';
-import { setHome } from '../reducers/home';
+import { FiCircle } from 'react-icons/fi';
 import ActionButton from './ActionButton';
+import { setMenuActive } from '../reducers/menu';
+import Menu from "./Menu";
 
 export default function Footer(){
     const dispatch = useDispatch();
-    const isHome = useSelector(state => state.home.isHome);
-    const footer = useSelector(state => state.home.footer);
+    const footer = useSelector(state => state.footer);
+    const menuActive = useSelector(state => state.menu.active);
 
     return (
-        <div className='absolute bottom-0 w-full flex justify-center bg-gradient-to-b from-transparent to-[#03071269] px-5 text-gray-100 text-lg'>
-            <div className='mb-3'>
-                <ActionButton>
-                    <FiCircle/>
-                </ActionButton>
-            </div>
-        </div>
+        <>
+            <Menu/>
+            {footer.active && (
+                <div className='z-10 absolute bottom-0 flex flex-col w-full text-gray-100'>
+                    <div className='flex justify-center bg-gradient-to-b from-transparent to-black/30 px-5 text-lg'>
+                        <div className='mb-2'>
+                            <ActionButton className='p-2 active:bg-gray-100/10' onClick={() => dispatch(setMenuActive(!menuActive))}>
+                                <FiCircle/>
+                            </ActionButton>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     )
 }

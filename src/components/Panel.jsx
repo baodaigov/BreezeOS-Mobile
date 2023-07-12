@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { setLocked } from '../reducers/global';
 import { setPanelActive } from '../reducers/panel';
-import { setVolume, setNightShift, setBoldText, setDarkMode, setWifi, setAirplaneMode, setBluetooth } from '../reducers/settings';
+import { setVolume, setNightShift, setBoldText, setDarkMode, setWifi, setAirplaneMode, setBluetooth, setBrightness } from '../reducers/settings';
 import RangeSlider from './RangeSlider';
 import { twMerge } from 'tailwind-merge';
 import { FaVolumeUp } from 'react-icons/fa';
@@ -11,21 +12,24 @@ import { GoChevronRight } from 'react-icons/go';
 import { HiOutlineSun } from 'react-icons/hi';
 import { IoAirplane } from 'react-icons/io5';
 import { TbLetterB } from 'react-icons/tb';
-import Time from './Time';
+import { BiLockAlt } from 'react-icons/bi';
+import TimeObjObj from './TimeObj';
 import Hammer from '@win11react/react-hammerjs';
 import VolumeAdjustSound from '../sounds/Oxygen-Sys-Special.mp3';
 import './PanelItem.scss';
 import BatteryIcon from './BatteryIcon';
 import BatteryLevel from './BatteryLevel';
 import ActionButton from './ActionButton';
+import { displayPowerMenu } from '../reducers/modal';
 
 export default function Panel(){
     const dispatch = useDispatch();
     const panelActive = useSelector(state => state.panel.active);
     const settings = useSelector(state => state.settings);
 
-    function powerOff(){
+    function debounceAction(action, duration){
         dispatch(setPanelActive(false));
+        setTimeout(() => dispatch(action), duration);
     }
 
     const PanelItem = ({ children, active, className, onClick }) => {
@@ -37,27 +41,32 @@ export default function Panel(){
     }
 
     return (
-        <div className={twMerge('text-xs bg-white bg-opacity-95 backdrop-blur-sm absolute bottom-full z-10 py-4 px-6 pb-0 flex flex-col justify-between h-full text-gray-800 dark:bg-gray-950 dark:bg-opacity-90 dark:text-gray-50 transition-all duration-200', panelActive && 'bottom-0')}>
+        <div className={twMerge('text-xs bg-white/95 backdrop-blur-sm absolute bottom-full z-20 py-4 px-6 pb-0 flex flex-col justify-between h-full text-gray-800 dark:bg-gray-950/90 dark:text-gray-50 transition-all duration-200', panelActive && 'bottom-0')}>
             <div className='flex flex-col'>
                 <div className='flex justify-between items-center w-full'>
                     <div className='flex items-center'>
                         <BatteryIcon className='mr-1 text-base'/>
                         <BatteryLevel/>
                         <div className='h-4 w-[0.5px] bg-gray-100 mx-2'></div>
-                        <Time/>
+                        <TimeObjObj/>
                     </div>
-                    <ActionButton size={2} onClick={powerOff}>
-                        <FiPower className='text-sm'/>
-                    </ActionButton>
+                    <div className='flex items-center'>
+                        <ActionButton className='p-2 mr-1 active:bg-gray-900/10 dark:active:bg-gray-100/10' onClick={() => debounceAction(setLocked(true), 300)}>
+                            <BiLockAlt className='text-base'/>
+                        </ActionButton>
+                        <ActionButton className='p-2 active:bg-gray-900/10 dark:active:bg-gray-100/10' onClick={() => debounceAction(displayPowerMenu(true), 300)}>
+                            <FiPower className='text-base'/>
+                        </ActionButton>
+                    </div>
                 </div>
                 <div className='flex flex-col py-8 border-solid border-b border-b-gray-200 dark:border-b-gray-900'>
                     <div className='flex items-center mb-8'>
                         <FaVolumeUp className='mr-4 text-lg'/>
-                        <RangeSlider value={settings.volume} min='0' max='100' onClick={() => new Audio(VolumeAdjustSound).play()} onInput={e => dispatch(setVolume(e.target.value))}/>
+                        <RangeSlider value={settings.volume} min={0} max={100} onClick={() => new Audio(VolumeAdjustSound).play()} onInput={e => dispatch(setVolume(e.target.value))}/>
                     </div>
                     <div className='flex items-center'>
                         <HiOutlineSun className='mr-4 text-lg'/>
-                        <RangeSlider/>
+                        <RangeSlider value={settings.brightness} min={15} max={100} onInput={e => dispatch(setBrightness(e.target.value))}/>
                     </div>
                 </div>
                 <div className='flex flex-wrap justify-between items-center py-8'>
@@ -102,7 +111,7 @@ export default function Panel(){
             </div>
             <Hammer onSwipeUp={() => dispatch(setPanelActive(false))} direction='DIRECTION_UP'>
                 <div className='flex justify-center w-full text-2xl mb-3'>
-                    <ActionButton onClick={() => dispatch(setPanelActive(false))}>
+                    <ActionButton className='p-1 active:bg-gray-900/10 dark:active:bg-gray-100/10' onClick={() => dispatch(setPanelActive(false))}>
                         <VscChevronUp/>
                     </ActionButton>
                 </div>

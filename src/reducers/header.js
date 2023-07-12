@@ -1,19 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    style: 'text-gray-100 transition-all duration-200'
+    active: true,
+    style: 'text-gray-100 transition-all duration-200',
+    displayMenu: false
 }
 
 const headerSlice = createSlice({
     name: 'header',
     initialState,
     reducers: {
+        setHeaderActive: (state, action) => {
+            state.active = action.payload;
+        },
         setStyle: (state, action) => {
             state.style = action.payload;
+        },
+        setDisplayMenu: (state, action) => {
+            state.displayMenu = action.payload;
         }
     }
 });
 
-export const { setStyle } = headerSlice.actions;
+export const { setHeaderActive, setStyle, setDisplayMenu } = headerSlice.actions;
 
 export default headerSlice.reducer;
