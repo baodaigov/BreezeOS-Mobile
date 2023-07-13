@@ -14,7 +14,7 @@ export default function Footer(){
             <Menu/>
             {footer.active && (
                 <div className='z-10 absolute bottom-0 flex flex-col w-full text-gray-100'>
-                    <div className='flex justify-center bg-gradient-to-b from-transparent to-black/30 px-5 text-lg'>
+                    <div className='flex justify-center bg-gradient-to-b from-transparent to-black/30 px-5 text-base'>
                         <div className='mb-2'>
                             <ActionButton className='p-2 active:bg-gray-100/10' onClick={() => dispatch(setMenuActive(!menuActive))}>
                                 <FiCircle/>
