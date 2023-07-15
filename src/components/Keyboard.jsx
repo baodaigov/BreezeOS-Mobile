@@ -7,8 +7,8 @@ import { twMerge } from "tailwind-merge";
 export default function Keyboard(){
     const keysArray = [
         ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
-        ['@', '#', '$', '%', '&', '*', '-', '+', '(', ')'],
-        ['shift', '!', '"', '\'', ':', ';', '/', '?', 'backspace'],
+        ['-', '/', ':', ';', '(', ')', '$', '&', '@', '"'],
+        ['shift', '.', ',', '?', '!', '\'', 'backspace'],
         ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
         ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
         ['shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'backspace'],
@@ -17,6 +17,7 @@ export default function Keyboard(){
 
     const alpha = 'abcdefghijklmnopqrstuvwxyz';
 
+    const [key, setKey] = useState('');
     const [keysType, setKeysType] = useState(null);
     const [disableSpaceLang, setDisableSpaceLang] = useState(false);
     const [lang, setLang] = useState('English (US)');
@@ -27,23 +28,29 @@ export default function Keyboard(){
         const keys = JSON.parse(JSON.stringify(keysArray)).slice(3);
         setKeysType(keys);
 
-        if(shift){
-            const capitalKeys = JSON.parse(JSON.stringify(keysArray)).slice(3);
-            const alphabet = alpha.split("");
-            capitalKeys.forEach(arr => {
-                arr.forEach((key, index, _arr) => {
-                    if (key.length === 1 && alphabet.indexOf(key) > -1) {
-                        _arr[index] = shift ? key.toUpperCase() : key.toLowerCase();
-                    }
-                });
+        const numKeys = JSON.parse(JSON.stringify(keysArray));
+        numKeys.splice(3, 3);
+
+        const capitalKeys = JSON.parse(JSON.stringify(keysArray)).slice(3);
+        const alphabet = alpha.split("");
+
+        capitalKeys.forEach(arr => {
+            arr.forEach((key, index, _arr) => {
+                if (key.length === 1 && alphabet.indexOf(key) > -1) {
+                    _arr[index] = shift ? key.toUpperCase() : key.toLowerCase();
+                }
             });
+        });
+
+        if(shift){
             setKeysType(capitalKeys);
         }
 
         if(num){
-            const numKeys = JSON.parse(JSON.stringify(keysArray));
-            numKeys.splice(3, 3);
             setKeysType(numKeys);
+            if(shift){
+                numKeys.splice(0, 2, ['[', ']', '{', '}', '#', '%', '^', '*', '+', '='], ['_', '\\', '|', '~', '<', '>', '€', '£', '¥', '•']);
+            }
         }
 
         setTimeout(() => setDisableSpaceLang(true), 3000);
@@ -54,6 +61,7 @@ export default function Keyboard(){
         const k = key && key.trim();
         if(k === 'shift') return setShift(!shift);
         if(k === '123') return setNum(!num);
+        return setKey(key);
     }
 
     function generate(key){
@@ -131,16 +139,26 @@ export default function Keyboard(){
     }
 
     return (
-        <div className='absolute bottom-0 z-10 bg-gray-900/90 backdrop-blur p-1 pb-12 w-full'>
-            <div className="flex flex-col">
-                {keysType && keysType.map((keys, i) => (
-                    <div className="flex justify-center w-full" key={i}>
-                        {keys.map(key => (
-                            <>{generate(key)}</>
-                        ))}
-                    </div>
-                ))}
+        <>
+            <div className='absolute top-10 bg-gray-900 text-white p-8 w-full flex flex-col text-center justify-center rounded-md'>
+                <p className='text-xs mb-5'>
+                    This box is being used to display the key whenever it's clicked.
+                    <br/>
+                    &#40;for developers only&#41;
+                </p>
+                <p className='text-2xl font-bold'>{key}</p>
             </div>
-        </div>
+            <div className='absolute bottom-0 z-10 bg-gray-900/90 backdrop-blur p-1 pb-12 w-full'>
+                <div className="flex flex-col">
+                    {keysType && keysType.map((keys, i) => (
+                        <div className="flex justify-center w-full" key={i}>
+                            {keys.map(key => (
+                                <>{generate(key)}</>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </>
     )
 }
