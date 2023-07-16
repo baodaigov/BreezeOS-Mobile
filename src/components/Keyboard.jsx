@@ -68,13 +68,13 @@ export default function Keyboard(){
         switch(key){
             case 'backspace':
                 return (
-                    <Key className='w-[60px]' onClick={() => keyClick(key)}>
+                    <Key className={`w-[60px] ${num && 'w-[104px]'}`} onClick={() => keyClick(key)}>
                         <IoBackspaceOutline/>
                     </Key>
                 )
             case 'shift':
                 return (
-                    <Key className='w-[60px]' onClick={() => keyClick(key)}>
+                    <Key className={`w-[60px] ${num && 'w-[104px]'}`} onClick={() => keyClick(key)}>
                         {shift ? <BsShiftFill/> : <BsShift/>}
                     </Key>
                 )
@@ -128,7 +128,7 @@ export default function Keyboard(){
         return (
             <div
                 className={twMerge(
-                    'flex justify-center items-center w-[38px] bg-gray-800/30 py-3 px-1 rounded-md m-[3px] text-gray-100 transition-all duration-200 active:bg-gray-700/40 active:transition-none',
+                    'flex justify-center items-center w-[38px] bg-gray-800/30 py-3 px-1 rounded-md m-[3px] text-gray-100 transition-colors duration-300 active:bg-gray-700/40 active:transition-none',
                     className
                 )}
                 onClick={onClick}
