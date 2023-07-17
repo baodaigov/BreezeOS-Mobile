@@ -144,7 +144,7 @@ export default function Keyboard(){
                 <p className='text-xs mb-5'>
                     This box is being used to display the key whenever it's clicked.
                     <br/>
-                    &#40;for developers only&#41;
+                    &#40;for development only&#41;
                 </p>
                 <p className='text-2xl font-bold'>{key}</p>
             </div>
