@@ -1,10 +1,16 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BsArrowReturnLeft, BsGlobe2, BsShift, BsShiftFill } from "react-icons/bs";
 import { GoSmiley } from "react-icons/go";
-import { IoBackspaceOutline } from "react-icons/io5";
+import { IoBackspaceOutline, IoCloseOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 import { twMerge } from "tailwind-merge";
+import ActionButton from './ActionButton';
+import { setKeyboardActive } from "../reducers/keyboard";
 
 export default function Keyboard(){
+    const dispatch = useDispatch();
+    const keyboard = useSelector(state => state.keyboard);
+
     const keysArray = [
         ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
         ['-', '/', ':', ';', '(', ')', '$', '&', '@', '"'],
@@ -106,7 +112,7 @@ export default function Keyboard(){
             case 'space':
                 return (
                     <Key className='text-xs w-[198px]' onClick={() => keyClick(key)}>
-                        <p className={twMerge(`text-gray-100 transition-all duration-300 opacity-100`, disableSpaceLang && 'opacity-0')}>{lang}</p>
+                        <p className={twMerge(`transition-all duration-300 opacity-100`, disableSpaceLang && 'opacity-0')}>{lang}</p>
                     </Key>
                 )
             case 'return':
@@ -128,7 +134,7 @@ export default function Keyboard(){
         return (
             <div
                 className={twMerge(
-                    'flex justify-center items-center w-[38px] bg-gray-800/30 py-3 px-1 rounded-md m-[3px] text-gray-100 transition-colors duration-300 active:bg-gray-700/40 active:transition-none',
+                    `flex justify-center items-center w-[38px] ${keyboard.theme === 'dark' ? 'bg-gray-800/30 text-gray-100 active:bg-gray-700/40' : 'bg-gray-200/30 text-gray-800 active:bg-gray-400/10'} py-3 px-1 rounded-md m-[3px] transition-colors duration-300 active:transition-none`,
                     className
                 )}
                 onClick={onClick}
@@ -148,7 +154,12 @@ export default function Keyboard(){
                 </p>
                 <p className='text-2xl font-bold'>{key}</p>
             </div>
-            <div className='absolute bottom-0 z-10 bg-gray-900/90 backdrop-blur p-1 pb-12 w-full'>
+            <div className={twMerge(`absolute -bottom-full z-10 ${keyboard.theme === 'dark' ? 'bg-gray-900/90' : 'bg-gray-100/80'} backdrop-blur p-1 pb-12 w-full flex flex-col transition-all duration-500`, keyboard.active && 'bottom-0')}>
+                <div className='flex flex-row-reverse py-1 px-2'>
+                    <ActionButton className={`p-1 bg-transparent ${keyboard.theme === 'dark' ? 'active:bg-gray-100/5 text-gray-100' : 'active:bg-gray-900/10'}`} onClick={() => dispatch(setKeyboardActive(false))}>
+                        <IoCloseOutline className='text-lg'/>
+                    </ActionButton>
+                </div>
                 <div className="flex flex-col">
                     {keysType && keysType.map((keys, i) => (
                         <div className="flex justify-center w-full" key={i}>
