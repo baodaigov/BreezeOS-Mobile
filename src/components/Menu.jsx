@@ -1,17 +1,26 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setMenuActive } from '../reducers/menu';
+import { setKeyboardActive } from '../reducers/keyboard';
 import { twMerge } from "tailwind-merge";
 
 export default function Menu(){
+    const dispatch = useDispatch();
     const menu = useSelector(state => state.menu);
+    const keyboard = useSelector(state => state.keyboard);
     const apps = useSelector(state => state.global.apps);
     const wallpaper = useSelector(state => state.global.wallpaper);
     const [searchQuery, setSearchQuery] = useState('');
 
+    const openApp = (action) => {
+        dispatch(setMenuActive(false));
+        return () => action;
+    }
+
     const App = ({ icon, name }) => {
         return (
-            <div className='flex flex-col text-center items-center mb-12'>
-                <img width={48} height={48} src={icon}/>
+            <div className='flex flex-col text-center items-center mb-12 [&:active_#imgapp]:brightness-75' onClick={() => openApp(dispatch(setKeyboardActive(!keyboard.active)))}>
+                <img width={48} height={48} src={icon} id='imgapp'/>
                 <p className='font-light text-xs mt-2'>{name}</p>
             </div>
         )

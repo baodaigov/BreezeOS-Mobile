@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     active: true,
-    theme: 'dark'
+    emoji: false
 }
 
 const keyboardSlice = createSlice({
@@ -11,13 +11,16 @@ const keyboardSlice = createSlice({
     reducers: {
         setKeyboardActive: (state, action) => {
             state.active = action.payload;
+            if(action.payload === false){
+                state.emoji = false;
+            }
         },
-        setKeyboardTheme: (state, action) => {
-            state.theme = action.payload;
+        setEmojiKeyboard: (state, action) => {
+            state.emoji = action.payload;
         }
     }
 });
 
-export const { setKeyboardActive, setKeyboardTheme } = keyboardSlice.actions;
+export const { setKeyboardActive, setEmojiKeyboard } = keyboardSlice.actions;
 
 export default keyboardSlice.reducer;
