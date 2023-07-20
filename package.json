@@ -1,7 +1,7 @@
 {
   "name": "breezeos-mobile",
   "private": true,
-  "version": "1.0",
+  "version": "dev",
   "homepage": "https://baodaigov.github.io/BreezeOS-Mobile",
   "type": "module",
   "scripts": {
