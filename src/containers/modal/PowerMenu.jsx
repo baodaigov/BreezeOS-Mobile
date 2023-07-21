@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
-import { displayPowerMenu, setModalType } from '../../reducers/modal';
+import { useEffect, useState } from 'react';
+import { displayPowerMenu } from '../../reducers/modal';
 import ModalBg from '../../components/ModalBg';
 import ActionButton from '../../components/ActionButton';
 import { FiPower } from 'react-icons/fi';
@@ -15,7 +15,15 @@ import { setFooterActive } from '../../reducers/footer';
 export default function PowerMenu(){
     const dispatch = useDispatch();
     const modal = useSelector(state => state.modal.powermenu);
-    const modalType = useSelector(state => state.modal.powermenu.modalType);
+    const [modalType, setModalType] = useState('');
+
+    useEffect(() => {
+        if(modal.active){
+            setModalType('default');
+        } else {
+            setModalType('');
+        }
+    }, [modal]);
 
     function debounceAction(action, duration){
         dispatch(displayPowerMenu(false));
@@ -23,9 +31,9 @@ export default function PowerMenu(){
     }
 
     function switchModal(type){
-        dispatch(setModalType(''));
+        setModalType('');
         setTimeout(() => {
-            dispatch(setModalType(type));
+            setModalType(type);
         }, 120);
     }
 
@@ -56,7 +64,7 @@ export default function PowerMenu(){
     }
 
     return (
-        <ModalBg active={modal.active && true}>
+        <ModalBg active={modal.active}>
             <div className={twMerge('absolute flex flex-col font-light text-sm transition-all duration-200 opacity-0 pointer-events-none', modalType === 'default' && 'opacity-100 pointer-events-auto')}>
                 <p className='mb-10'>Choose an option:</p>
                 <div className='flex flex-col justify-center'>
@@ -79,7 +87,12 @@ export default function PowerMenu(){
                         <p className='text-xs'>Restart</p>
                     </div>
                     <div className="flex justify-center items-center mt-14">
-                        <ActionButton className='bg-gray-100/5 p-4 transition-all active:bg-gray-100/10' onClick={() => dispatch(displayPowerMenu(false))}>
+                        <ActionButton
+                            className='bg-gray-100/5 p-4 transition-all active:bg-gray-100/10'
+                            onClick={() => {
+                                dispatch(displayPowerMenu(false));
+                            }}
+                        >
                             <IoCloseOutline className='text-lg'/>
                         </ActionButton>
                     </div>
