@@ -1,10 +1,8 @@
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { BsBatteryFull, BsBatteryCharging } from 'react-icons/bs';
-import { useBattery } from 'react-use';
-import { useEffect } from 'react';
 
 export default function BatteryIcon({ className }){
-    const batteryState = useBattery();
+    const batteryCharging = useSelector(state => state.settings.battery.charging);
 
-    return <>{batteryState.charging ? <BsBatteryCharging className={className}/> : <BsBatteryFull className={className}/>}</>
+    return <>{batteryCharging ? <BsBatteryCharging className={className}/> : <BsBatteryFull className={className}/>}</>
 }

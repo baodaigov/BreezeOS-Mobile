@@ -22,11 +22,15 @@ export default function Keyboard({ theme = 'dark' }){
         ['123', 'lang', 'emoji', 'space', 'return']
     ];
 
+    const emojiArray = [
+        ['😀', '😃', '😄', '😁', '😆', '🥹', '😅', '😂', '🤣', '🥲', '☺️'],
+    ];
+
     const alpha = 'abcdefghijklmnopqrstuvwxyz';
 
     const [key, setKey] = useState('');
-    const [height, setHeight] = useState(294);
     const [keysType, setKeysType] = useState(null);
+    const [emojisType, setEmojisType] = useState(null);
     const [disableSpaceLang, setDisableSpaceLang] = useState(false);
     const [lang, setLang] = useState('English (US)');
     const [shift, setShift] = useState(false);
@@ -50,6 +54,12 @@ export default function Keyboard({ theme = 'dark' }){
             });
         });
 
+        if(!keyboard.active){
+            setShift(false);
+            setNum(false);
+            dispatch(setEmojiKeyboard(false));
+        }
+
         if(shift){
             setKeysType(capitalKeys);
         }
@@ -62,7 +72,7 @@ export default function Keyboard({ theme = 'dark' }){
         }
 
         setTimeout(() => setDisableSpaceLang(true), 3000);
-    }, [shift, num]);
+    }, [shift, num, keyboard]);
 
     function keyClick(key){
         const k = key && key.trim();
@@ -137,7 +147,7 @@ export default function Keyboard({ theme = 'dark' }){
         return (
             <div
                 className={twMerge(
-                    `flex justify-center items-center w-[38px] ${theme === 'dark' ? 'bg-gray-800/30 text-gray-100 active:bg-gray-700/40' : 'bg-gray-200/30 text-gray-800 active:bg-gray-400/10'} py-3 px-1 rounded-md m-[3px] transition-colors duration-300 active:transition-none`,
+                    `font-light flex justify-center items-center w-[38px] ${theme === 'dark' ? 'bg-gray-800/30 text-gray-100 active:bg-gray-700/40' : 'bg-gray-200/30 text-gray-800 active:bg-gray-400/10'} py-3 px-1 rounded-md m-[3px] transition-colors duration-300 active:transition-none`,
                     className
                 )}
                 onClick={onClick}
@@ -149,15 +159,17 @@ export default function Keyboard({ theme = 'dark' }){
 
     return (
         <>
-            <div className='absolute top-10 bg-gray-900 text-white p-8 w-full flex flex-col text-center justify-center rounded-md'>
-                <p className='text-xs mb-5'>
-                    This box is being used to display the key whenever it's clicked.
-                    <br/>
-                    &#40;for development only&#41;
-                </p>
-                <p className='text-2xl font-bold'>{key}</p>
-            </div>
-            <div className={twMerge(`absolute -bottom-full z-10 ${theme === 'dark' ? 'bg-gray-900/90' : 'bg-gray-50/80'} backdrop-blur p-1 pb-12 w-full flex flex-col transition-all duration-300`, keyboard.active && 'bottom-0')} style={{ height: `${height}px` }}>
+            {keyboard.active && (
+                <div className='absolute top-10 bg-gray-900 text-white p-8 w-full flex flex-col text-center justify-center rounded-md'>
+                    <p className='text-xs mb-5'>
+                        This box is being used to display the key whenever it's clicked.
+                        <br/>
+                        &#40;for development only&#41;
+                    </p>
+                    <p className='text-2xl font-bold'>{key}</p>
+                </div>
+            )}
+            <div className={twMerge(`absolute -bottom-full z-10 ${theme === 'dark' ? 'bg-gray-900/90' : 'bg-gray-50/80'} backdrop-blur p-1 pb-12 w-full flex flex-col transition-all duration-300`, keyboard.active && 'bottom-0')}>
                 <div className='flex flex-row-reverse py-1 px-2'>
                     <ActionButton className={`p-1 bg-transparent ${theme === 'dark' ? 'active:bg-gray-100/5 text-gray-100' : 'active:bg-gray-900/10'}`} onClick={() => dispatch(setKeyboardActive(false))}>
                         <IoCloseOutline className='text-lg'/>
@@ -176,7 +188,15 @@ export default function Keyboard({ theme = 'dark' }){
                 )}
                 {keyboard.emoji && (
                     <div className={`flex flex-col justify-between h-full px-1 ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>
-                        <p>Emoji keyboard coming soon</p>
+                        <div className="px-2 py-4">
+                            {emojiArray.map((keys, i) => (
+                                <div className='flex'>
+                                    {keys.map(key => (
+                                        <p>{key}</p>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
                         <div className="flex">
                             <ActionButton className={`p-1 bg-transparent ${theme === 'dark' ? 'active:bg-gray-100/5' : 'active:bg-gray-900/10'}`} onClick={() => dispatch(setEmojiKeyboard(false))}>
                                 <VscChevronLeft className='text-xl'/>

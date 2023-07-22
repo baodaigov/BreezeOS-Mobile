@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import Wallpaper from "./components/Wallpaper";
 import Header from "./components/Header";
-import Panel from "./components/Panel";
 import ModalContainer from "./components/ModalContainer";
 import Footer from "./components/Footer";
 import LockScreen from "./components/LockScreen";
@@ -23,7 +22,6 @@ export default function App() {
                         <Wallpaper/>
                         <div className='absolute top-0 overflow-hidden h-screen w-full flex flex-col'>
                             <Header/>
-                            <Panel/>
                             <ModalContainer/>
                             <Footer/>
                         </div>

@@ -3,7 +3,7 @@ import ModalBg from '../../components/ModalBg';
 import Modal from '../../components/Modal';
 import { displayPlatformMenu } from '../../reducers/modal';
 
-export default function PowerMenu(){
+export default function UnsuitablePlatform(){
     const dispatch = useDispatch();
     const modal = useSelector(state => state.modal.platform);
 
