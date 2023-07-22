@@ -147,7 +147,7 @@ export default function Keyboard({ theme = 'dark' }){
         return (
             <div
                 className={twMerge(
-                    `font-light flex justify-center items-center w-[38px] ${theme === 'dark' ? 'bg-gray-800/30 text-gray-100 active:bg-gray-700/40' : 'bg-gray-200/30 text-gray-800 active:bg-gray-400/10'} py-3 px-1 rounded-md m-[3px] transition-colors duration-300 active:transition-none`,
+                    `flex justify-center items-center w-[38px] ${theme === 'dark' ? 'bg-gray-800/30 text-gray-100 active:bg-gray-700/40' : 'bg-gray-200/30 text-gray-800 active:bg-gray-400/10'} py-3 px-1 rounded-md m-[3px] transition-colors duration-300 active:transition-none`,
                     className
                 )}
                 onClick={onClick}

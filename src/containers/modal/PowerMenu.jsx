@@ -65,7 +65,7 @@ export default function PowerMenu(){
 
     return (
         <ModalBg active={modal.active}>
-            <div className={twMerge('absolute flex flex-col font-light text-sm transition-all duration-200 opacity-0 pointer-events-none', modalType === 'default' && 'opacity-100 pointer-events-auto')}>
+            <div className={twMerge('absolute flex flex-col text-sm transition-all duration-200 opacity-0 pointer-events-none', modalType === 'default' && 'opacity-100 pointer-events-auto')}>
                 <p className='mb-10'>Choose an option:</p>
                 <div className='flex flex-col justify-center'>
                     <div className='flex flex-col justify-center items-center mb-7'>
@@ -98,7 +98,7 @@ export default function PowerMenu(){
                     </div>
                 </div>
             </div>
-            <div className={twMerge('absolute px-12 flex flex-col items-center font-light transition-all duration-200 opacity-0 pointer-events-none', modalType === 'poweroff' && 'opacity-100 pointer-events-auto')}>
+            <div className={twMerge('absolute px-12 flex flex-col items-center transition-all duration-200 opacity-0 pointer-events-none', modalType === 'poweroff' && 'opacity-100 pointer-events-auto')}>
                 <ActionButton className='mb-8 bg-gray-100/10 p-5 transition-all active:bg-gray-100/20' onClick={() => debounceAction(powerOff, 500)}>
                     <FiPower className='text-xl'/>
                 </ActionButton>
@@ -109,7 +109,7 @@ export default function PowerMenu(){
                     <p className='text-xs'>Cancel</p>
                 </ActionButton>
             </div>
-            <div className={twMerge('absolute px-12 flex flex-col items-center font-light transition-all duration-200 opacity-0 pointer-events-none', modalType === 'restart' && 'opacity-100 pointer-events-auto')}>
+            <div className={twMerge('absolute px-12 flex flex-col items-center transition-all duration-200 opacity-0 pointer-events-none', modalType === 'restart' && 'opacity-100 pointer-events-auto')}>
                 <ActionButton className='mb-8 bg-gray-100/10 p-5 transition-all active:bg-gray-100/20' onClick={() => debounceAction(restart, 500)}>
                     <GrRotateLeft className='text-xl'/>
                 </ActionButton>

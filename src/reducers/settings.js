@@ -7,7 +7,10 @@ const initialState = {
     bluetooth: false,
     airplaneMode: false,
     darkMode: true,
-    nightShift: false,
+    nightShift: {
+        active: false,
+        level: 0.15,
+    },
     boldText: false,
     battery: {
         level: null,
@@ -40,8 +43,11 @@ const settingsSlice = createSlice({
         setDarkMode: (state, action) => {
             state.darkMode = action.payload;
         },
-        setNightShift: (state, action) => {
-            state.nightShift = action.payload;
+        setNightShiftActive: (state, action) => {
+            state.nightShift.active = action.payload;
+        },
+        setNightShiftLevel: (state, action) => {
+            state.nightShift.level = action.payload;
         },
         setBluetooth: (state, action) => {
             state.bluetooth = action.payload;
@@ -61,6 +67,6 @@ const settingsSlice = createSlice({
     }
 });
 
-export const { setVolume, setBrightness, setWifi, setAirplaneMode, setDarkMode, setNightShift, setBluetooth, setBoldText, setBatteryLevel, setBatteryCharging, toggleBatterySaver } = settingsSlice.actions;
+export const { setVolume, setBrightness, setWifi, setAirplaneMode, setDarkMode, setNightShiftActive, setNightShiftLevel, setBluetooth, setBoldText, setBatteryLevel, setBatteryCharging, toggleBatterySaver } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useBattery } from "react-use";
-import { displayPlatformMenu } from "../reducers/modal";
 import { setBatteryCharging, setBatteryLevel } from "../reducers/settings";
 
 export default function BatteryLevel({ className }){
@@ -15,10 +14,8 @@ export default function BatteryLevel({ className }){
     useEffect(() => {
         if(isNaN(batteryPercent)){
             dispatch(setBatteryLevel('-'));
-            dispatch(displayPlatformMenu(true));
         } else {
             dispatch(setBatteryLevel(batteryPercent));
-            dispatch(displayPlatformMenu(false));
         }
 
         if(batteryState.charging){
@@ -26,7 +23,7 @@ export default function BatteryLevel({ className }){
         } else {
             dispatch(setBatteryCharging(false));
         }
-    }, [batteryPercent, batteryState]);
+    }, [batteryState]);
 
     return <p className={className}>{battery.level}%</p>
 }

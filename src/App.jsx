@@ -6,17 +6,19 @@ import Footer from "./components/Footer";
 import LockScreen from "./components/LockScreen";
 import BrightnessOverlay from './components/BrightnessOverlay';
 import SplashScreen from './components/SplashScreen';
+import NightShiftOverlay from "./components/NightShiftOverlay";
 
 export default function App() {
-    const darkMode = useSelector(state => state.settings.darkMode);
+    const settings = useSelector(state => state.settings);
     const blankScr = useSelector(state => state.global.isBlank);
 
     return (
         <>
             {!blankScr && (
-                <div className={`${darkMode ? 'dark' : ''} h-screen w-full max-w-md select-none cursor-default font-light`}>
+                <div className={`${settings.darkMode ? 'dark' : ''} h-screen w-full max-w-md select-none cursor-default ${settings.boldText ? 'font-semibold' : 'font-light'}`}>
                     <div className='relative h-screen'>
                         <SplashScreen/>
+                        <NightShiftOverlay/>
                         <BrightnessOverlay/>
                         <LockScreen/>
                         <Wallpaper/>

@@ -11,4 +11,15 @@
         border: 0;
         box-shadow: -210px 0 0 195px #83aaff;
     }
+
+    &::-moz-range-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 28px;
+        height: 28px;
+        background: #83aaff;
+        border-radius: 999px;
+        border: 0;
+        box-shadow: -210px 0 0 195px #83aaff;
+    }
 }

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setLocked } from '../reducers/global';
 import { setPanelActive } from '../reducers/panel';
-import { setVolume, setNightShift, setBoldText, setDarkMode, setWifi, setAirplaneMode, setBluetooth, setBrightness } from '../reducers/settings';
+import { setVolume, setNightShiftActive, setBoldText, setDarkMode, setWifi, setAirplaneMode, setBluetooth, setBrightness, toggleBatterySaver } from '../reducers/settings';
 import RangeSlider from './RangeSlider';
 import { twMerge } from 'tailwind-merge';
 import { FaVolumeUp } from 'react-icons/fa';
@@ -13,6 +13,7 @@ import { HiOutlineSun } from 'react-icons/hi';
 import { IoAirplane } from 'react-icons/io5';
 import { TbLetterB } from 'react-icons/tb';
 import { BiLockAlt } from 'react-icons/bi';
+import { PiLeafBold } from 'react-icons/pi';
 import TimeObjObj from './TimeObj';
 import Hammer from '@win11react/react-hammerjs';
 import VolumeAdjustSound from '../sounds/Oxygen-Sys-Special.mp3';
@@ -20,12 +21,12 @@ import BatteryIcon from './BatteryIcon';
 import BatteryLevel from './BatteryLevel';
 import ActionButton from './ActionButton';
 import { displayPowerMenu } from '../reducers/modal';
-import { useMemo } from 'react';
 
 export default function Panel(){
     const dispatch = useDispatch();
     const panelActive = useSelector(state => state.panel.active);
     const settings = useSelector(state => state.settings);
+    const battery = useSelector(state => state.settings.battery);
 
     function debounceAction(action, duration){
         dispatch(setPanelActive(false));
@@ -43,12 +44,12 @@ export default function Panel(){
         )
     }
 
-    const panelItems = useMemo(() => [
+    const panelItems = [
         {
             icon: <FiSun/>,
             label: 'Night Shift',
-            active: settings.nightShift,
-            onClick: () => dispatch(setNightShift(!settings.nightShift)),
+            active: settings.nightShift.active,
+            onClick: () => dispatch(setNightShiftActive(!settings.nightShift.active)),
         },
         {
             icon: <FiWifi/>,
@@ -80,7 +81,13 @@ export default function Panel(){
             active: settings.boldText,
             onClick: () => dispatch(setBoldText(!settings.boldText)),
         },
-    ], [settings]);
+        {
+            icon: <PiLeafBold/>,
+            label: 'Battery Saver',
+            active: battery.batterySaver,
+            onClick: () => dispatch(toggleBatterySaver(!battery.batterySaver)),
+        },
+    ];
 
     return <>
         <div className={twMerge('text-xs bg-white/95 backdrop-blur-sm absolute bottom-full z-20 py-4 px-6 pb-0 flex flex-col justify-between w-full h-full text-gray-800 dark:bg-gray-950/90 dark:text-gray-50 opacity-0 pointer-events-none transition-all duration-200', panelActive && 'bottom-0 opacity-100 pointer-events-auto')}>
