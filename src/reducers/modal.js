@@ -9,6 +9,9 @@ const initialState = {
     },
     lowbattery: {
         active: false
+    },
+    batterynotfound: {
+        active: false
     }
 }
 
@@ -25,9 +28,12 @@ const modalSlice = createSlice({
         displayLowBatteryMenu: (state, action) => {
             state.lowbattery.active = action.payload;
         },
+        displayBatteryNotFoundMenu: (state, action) => {
+            state.batterynotfound.active = action.payload;
+        },
     }
 });
 
-export const { displayPowerMenu, displayPlatformMenu, displayLowBatteryMenu } = modalSlice.actions;
+export const { displayPowerMenu, displayPlatformMenu, displayLowBatteryMenu, displayBatteryNotFoundMenu } = modalSlice.actions;
 
 export default modalSlice.reducer;

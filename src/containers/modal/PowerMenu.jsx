@@ -54,7 +54,6 @@ export default function PowerMenu(){
         setTimeout(() => {
             dispatch(setBlank(false));
             dispatch(displayScreenSplash(true));
-            console.log('werewrr')
         }, 17000);
         setTimeout(() => {
             dispatch(displayScreenSplash(false));
