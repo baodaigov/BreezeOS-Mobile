@@ -9,34 +9,37 @@
     "tauri": "tauri",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "build": "vite build",
-    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@tauri-apps/api": "^1.4.0",
-    "@win11react/react-hammerjs": "^1.0.2",
-    "browserify": "^17.0.0",
     "dotenv": "^16.3.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-redux": "^8.1.1",
+    "react-slick": "^0.29.0",
     "react-use": "^17.4.0",
     "tailwind-merge": "^1.13.2"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.4.0",
+    "@types/node": "^20.4.5",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
+    "@types/react-hammerjs": "^1.0.4",
     "@vitejs/plugin-react": "^4.0.1",
     "autoprefixer": "^10.4.14",
     "gh-pages": "^5.0.0",
     "postcss": "^8.4.25",
+    "react-hammerjs": "^1.0.1",
     "sass": "^1.63.6",
     "tailwindcss": "^3.3.2",
+    "typescript": "^5.0.2",
     "vite": "^4.4.0"
   }
 }

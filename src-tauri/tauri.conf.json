@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.baodaigov.breezeos-mobile",
+      "identifier": "gov.baodai.breezeos-mobile",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -55,7 +55,7 @@
     },
     "windows": [
       {
-        "fullscreen": false,
+        "fullscreen": true,
         "height": 600,
         "resizable": true,
         "title": "BreezeOS Mobile",
