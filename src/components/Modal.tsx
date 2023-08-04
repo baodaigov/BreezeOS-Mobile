@@ -7,7 +7,7 @@ interface ModalProps {
     buttons: {
         value: string
         disabled?: boolean
-        action: () => void
+        action: React.MouseEventHandler<HTMLButtonElement>
     }[]
 }
 

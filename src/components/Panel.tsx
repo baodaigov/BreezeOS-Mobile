@@ -44,7 +44,7 @@ export default function Panel(){
     const PanelItem = ({ icon: Icon, label, active, onClick }: PanelItemProps) => {
         return (
             <div className='flex flex-col items-center text-center mx-2 mb-10'>
-                <div className={twMerge('rounded-full p-4 mb-3 flex justify-center items-center text-base transition-all bg-gray-200 hover:bg-gray-300 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800', active && 'bg-[#83aaff] text-gray-800 hover:bg-[#aac5ff] dark:bg-[#83aaff] dark:hover:bg-[#aac5ff] dark:text-gray-800')} onClick={onClick}>
+                <div className={twMerge('rounded-full p-4 mb-3 flex justify-center items-center text-base transition-all bg-gray-100 hover:bg-gray-300 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800', active && 'bg-[#83aaff] text-gray-800 hover:bg-[#aac5ff] dark:bg-[#83aaff] dark:hover:bg-[#aac5ff] dark:text-gray-800')} onClick={onClick}>
                     <Icon/>
                 </div>
                 <p>{label}</p>
@@ -105,7 +105,7 @@ export default function Panel(){
     ];
 
     return <>
-        <div className={twMerge('text-xs bg-white/95 backdrop-blur-sm absolute bottom-full z-20 py-4 px-6 pb-0 flex flex-col justify-between w-full h-full text-gray-800 dark:bg-gray-950/90 dark:text-gray-50 opacity-0 pointer-events-none transition-all duration-200', panelActive && 'bottom-0 opacity-100 pointer-events-auto')}>
+        <div className={twMerge('text-xs bg-white/95 backdrop-blur-sm absolute bottom-full z-30 py-4 px-6 pb-0 flex flex-col justify-between w-full h-full text-gray-800 dark:bg-gray-950/90 dark:text-gray-50 opacity-0 pointer-events-none transition-all duration-200', panelActive && 'bottom-0 opacity-100 pointer-events-auto')}>
             <div className="relative h-full">
                 <div className='flex flex-col'>
                     <div className='flex justify-between items-center w-full'>

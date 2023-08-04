@@ -5,9 +5,6 @@ interface modalState {
         active: boolean,
         emergencyMode: boolean
     },
-    platform: {
-        active: boolean,
-    },
     lowbattery: {
         active: boolean,
     },
@@ -20,9 +17,6 @@ const initialState: modalState = {
     powermenu: {
         active: false,
         emergencyMode: false
-    },
-    platform: {
-        active: false
     },
     lowbattery: {
         active: false
@@ -42,9 +36,6 @@ const modalSlice = createSlice({
         toggleEmergencyMode: (state, action: PayloadAction<boolean>) => {
             state.powermenu.emergencyMode = action.payload;
         },
-        displayPlatformMenu: (state, action: PayloadAction<boolean>) => {
-            state.platform.active = action.payload;
-        },
         displayLowBatteryMenu: (state, action: PayloadAction<boolean>) => {
             state.lowbattery.active = action.payload;
         },
@@ -54,6 +45,6 @@ const modalSlice = createSlice({
     }
 });
 
-export const { displayPowerMenu, toggleEmergencyMode, displayPlatformMenu, displayLowBatteryMenu, displayBatteryNotFoundMenu } = modalSlice.actions;
+export const { displayPowerMenu, toggleEmergencyMode, displayLowBatteryMenu, displayBatteryNotFoundMenu } = modalSlice.actions;
 
 export default modalSlice.reducer;

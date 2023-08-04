@@ -27,9 +27,9 @@ const initialState: globalState = {
     screenSplash: false,
     apps: [
         {
-            name: 'Firefox',
+            name: 'Phone',
             icon: 'https://raw.githubusercontent.com/yeyushengfan258/Citrus-icon-theme/7fac80833a94baf4d4a9132ea9475c2b819b5827/src/scalable/apps/firefox.svg',
-            type: 'keyboard/setKeyboardActive',
+            type: 'phone/setActive',
             payload: true
         }
     ]

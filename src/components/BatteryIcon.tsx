@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../store/hooks';
 import { BsBatteryFull, BsBatteryCharging } from 'react-icons/bs';
 
 interface BatteryIconProps {
@@ -6,7 +6,7 @@ interface BatteryIconProps {
 }
 
 export default function BatteryIcon({ className }: BatteryIconProps){
-    const batteryCharging: any = useSelector<any>(state => state.settings.battery.charging);
+    const batteryCharging = useAppSelector(state => state.settings.battery.charging);
 
     return <>{batteryCharging ? <BsBatteryCharging className={className}/> : <BsBatteryFull className={className}/>}</>
 }
