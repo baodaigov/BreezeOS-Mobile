@@ -97,7 +97,7 @@ export default function PowerMenu(){
                                     dispatch(displayPowerMenu(false));
                                     debounceAction(() => {
                                         dispatch(toggleEmergencyMode(false));
-                                        dispatch(setPhoneNumber(911));
+                                        dispatch(setPhoneNumber('911'));
                                     }, 500);
                                 }}>
                                 <TbSos className='text-2xl'/>

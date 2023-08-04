@@ -8,7 +8,7 @@ import avatar1 from '../../images/cyplucastero.jpg';
 import { BiSolidMicrophoneOff, BiPencil } from 'react-icons/bi';
 import { IoIosKeypad } from 'react-icons/io';
 import { FaVolumeUp } from 'react-icons/fa';
-import { IoChatbubbleEllipses } from 'react-icons/io5';
+import { IoBackspaceOutline, IoChatbubbleEllipses, IoClose } from 'react-icons/io5';
 import ActionButton from "../../components/ActionButton";
 import Sound from '../../sounds/call.mp3'
 import { switchStyle } from "../../store/reducers/header";
@@ -20,17 +20,18 @@ import { AiOutlineExclamation, AiOutlineUser } from 'react-icons/ai';
 import { IconType } from "react-icons"
 import { signal } from "@preact/signals";
 import Hammer from 'react-hammerjs';
+import ContactImg from '../../images/contact.svg';
 
 const history = signal<{
     name: string
-    number: number | string | null
+    number: string | null
     color: string | null
     image: any
 }[]>([]);
 
 const favorite = signal<{
     name: string
-    number: number | string | null
+    number: string | null
     color: string | null
     image: any
 }[]>([]);
@@ -80,7 +81,7 @@ export default function Phone(){
     ]
 
     const [section, setSection] = useState<number>(0);
-    const emergencyNumber = 911;
+    const emergencyNumber = '911';
     const favoriteValue = favorite.value;
     const historyValue = history.value;
     const sound = new Audio(Sound);
@@ -122,13 +123,14 @@ export default function Phone(){
     interface ContactProps {
         name: string
         image: any
-        number: number | string | null
+        number: string | null
         color: string | null
     }
 
     const Contact: React.FC<ContactProps> = ({ name, image, number, color }) => {
         const [contactShown, setContactShown] = useState(false);
         const [isFavorite, setFavorite] = useState<boolean>(false);
+        const [addCallerActive, setAddCallerActive] = useState<boolean>(false);
 
         useEffect(() => {
             if(isFavorite){
@@ -171,9 +173,11 @@ export default function Phone(){
                     </div>
                     <div className="flex flex-col items-center my-5">
                         <Avatar name={name} image={image} color={color} size={96} fontSize={48} isEmergency={number === emergencyNumber && true}>
-                            <div className="bg-black/70 w-full h-full absolute top-0 left-0 bottom-0 right-0 p-5 flex justify-center items-center opacity-0 hover:opacity-100">
-                                <BiPencil className='text-3xl'/>
-                            </div>
+                            {name !== '' && number !== null && (
+                                <div className="bg-black/70 w-full h-full absolute top-0 left-0 bottom-0 right-0 p-5 flex justify-center items-center opacity-0 hover:opacity-100">
+                                    <BiPencil className='text-3xl'/>
+                                </div>
+                            )}
                         </Avatar>
                         <p className='text-xl mt-5'>{number === emergencyNumber ? 'Emergency service' : name !== '' ? name : `${number}`}</p>
                         <p className='text-xs text-gray-500 mt-2'>{number}</p>
@@ -206,9 +210,52 @@ export default function Phone(){
                             <p>Message</p>
                         </ActionButton>
                     </div>
+                    {/* {name === '' && (
+                        <div className='rounded-md py-2 px-3 mb-4 text-sm bg-gray-800/5 text-gray-800 dark:bg-gray-100/5 dark:text-gray-100'>
+                            <p className='inline'>This caller is not in your contact list.</p>
+                            <p
+                                className='ml-1 inline text-sky-600'
+                                onClick={() => {
+                                    setContactShown(false);
+                                    setTimeout(() => setAddCallerActive(true), 500);
+                                }}
+                            >
+                                Add this caller...
+                            </p>
+                        </div>
+                    )} */}
+                        <div className='rounded-md py-2 px-3 mb-4 text-sm bg-gray-800/5 text-gray-800 dark:bg-gray-100/5 dark:text-gray-100'>
+                            <p className='inline'>This caller is not in your contact list.</p>
+                            <p
+                                className='ml-1 inline text-sky-600'
+                                onClick={() => {
+                                    setContactShown(false);
+                                    setTimeout(() => setAddCallerActive(true), 500);
+                                }}
+                            >
+                                Add this caller...
+                            </p>
+                        </div>
                     <div className="flex flex-col text-sm h-full mb-6">
                         <p className='mb-2'>Note</p>
-                        <div className='rounded-md py-2 px-3 h-full border-none outline-none bg-gray-800/5 text-gray-800 dark:bg-gray-100/5 dark:text-gray-100' contentEditable={true} spellCheck={false}></div>
+                        <textarea className='appearance-none resize-none border-none outline-none rounded-md py-2 px-3 h-full bg-gray-800/5 text-gray-800 dark:bg-gray-100/5 dark:text-gray-100' spellCheck={false}/>
+                    </div>
+                </div>
+                <div className={twMerge('absolute top-0 bottom-0 left-0 right-0 bg-black/90 z-10 w-full h-full flex justify-center opacity-0 pointer-events-none transition-all duration-[250ms]', addCallerActive && 'opacity-100 pointer-events-auto')}>
+                    <div className={twMerge('absolute -bottom-full w-[97%] rounded-t-3xl flex flex-col items-center bg-gray-100 text-gray-800 dark:bg-zinc-950 dark:text-gray-100 transition-all duration-[600ms] opacity-0 pointer-events-none', addCallerActive && 'bottom-0 opacity-100 pointer-events-auto')}>
+                        <div className="py-8 px-6 pb-14 flex flex-col items-center text-center">
+                            <div className="relative w-full flex justify-center items-center">
+                                <ActionButton className='absolute right-0 p-2 transition-all duration-500 active:bg-gray-800/10 dark:active:bg-gray-100/10 active:transition-none' onClick={() => setAddCallerActive(false)}>
+                                    <IoClose className='text-lg'/>
+                                </ActionButton>
+                                <p className='font-semibold text-3xl'>Add Contact</p>
+                            </div>
+                            <img className='w-full h-full my-8' src={ContactImg}/>
+                            <p className='text-sm'>Adding this caller in your contact is very easy for you to identify who they are.<br/>Click the button to start the setup process.</p>
+                            <ActionButton className='bg-sky-700 mt-6 py-3 px-7 rounded-2xl transition-all duration-300 active:bg-sky-900 active:transition-none text-gray-100 font-semibold'>
+                                Get Started
+                            </ActionButton>
+                        </div>
                     </div>
                 </div>
             </>
@@ -579,16 +626,31 @@ export default function Phone(){
                                         ))}
                                     </div>
                                 ))}
-                                <div className="flex justify-center items-center mt-5">
-                                    <ActionButton
-                                        className='p-4 bg-green-400 text-gray-100 transition-all duration-300 active:bg-green-500 active:transition-none'
-                                        onClick={() => setTimeout(() => dispatch(setPhoneNumber(number.join(''))), 100)}
-                                    >
-                                        <HiPhone className='text-xl'/>
-                                    </ActionButton>
-                                    {/* <ActionButton className='z-10 p-3 transition-all duration-200 active:bg-gray-800/10 dark:active:bg-gray-100/10 active:transition-none'>
-                                        <IoBackspaceOutline className='text-lg'/>
-                                    </ActionButton> */}
+                                <div className="relative flex items-center mt-5">
+                                    <div className="w-full flex justify-center items-center">
+                                        <ActionButton
+                                            className='p-4 bg-green-400 text-gray-100 transition-all duration-300 active:bg-green-500 active:transition-none'
+                                            onClick={() => setTimeout(() => dispatch(setPhoneNumber(number.join(''))), 100)}
+                                        >
+                                            <HiPhone className='text-xl'/>
+                                        </ActionButton>
+                                    </div>
+                                    {number.length !== 0 && (
+                                        <Hammer
+                                            onPress={() => setNumber(number.slice(0, -1))}
+                                            options={{
+                                                recognizers: {
+                                                    press: {
+                                                        time: 0
+                                                    }
+                                                }
+                                            }}
+                                        >
+                                            <div className='absolute right-0 flex justify-center items-center rounded-full z-10 p-3 transition-all duration-200 active:bg-gray-800/10 dark:active:bg-gray-100/10 active:transition-none'>
+                                                <IoBackspaceOutline className='text-lg'/>
+                                            </div>
+                                        </Hammer>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -623,7 +685,7 @@ export default function Phone(){
                     }
                 />
             </div>
-            <div className={twMerge('absolute top-0 bottom-0 left-0 right-0 m-auto w-[90%] h-[90%] flex flex-col transition-all duration-300 opacity-0 pointer-events-none', phone.number !== null && 'w-full h-full opacity-100 pointer-events-auto')}>
+            <div className={twMerge('absolute top-0 bottom-0 left-0 right-0 z-10 m-auto w-[90%] h-[90%] flex flex-col transition-all duration-300 opacity-0 pointer-events-none', phone.number !== null && 'w-full h-full opacity-100 pointer-events-auto')}>
                 {phone.number === emergencyNumber ? (
                     <div className='bg-center bg-no-repeat bg-cover w-full h-full' style={{ backgroundImage: `url(${EmergencyBg})` }}>
                         <div className='flex flex-col bg-gradient-to-b from-[#680000]/80 to-[#a50000] w-full h-full py-8 px-4 text-gray-100'>
