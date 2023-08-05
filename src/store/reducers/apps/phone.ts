@@ -4,7 +4,7 @@ interface phoneState {
     active: boolean
     name: string
     image: any
-    number: string | null
+    number: string
     color: string | null
 }
 
@@ -12,7 +12,7 @@ const initialState: phoneState = {
     active: false,
     name: '',
     image: null,
-    number: null,
+    number: '',
     color: null
 }
 
@@ -29,7 +29,7 @@ const phone = createSlice({
         setImage: (state, action: PayloadAction<any>) => {
             state.image = action.payload;
         },
-        setPhoneNumber: (state, action: PayloadAction<string | null>) => {
+        setPhoneNumber: (state, action: PayloadAction<string>) => {
             state.number = action.payload;
         },
         setColor: (state, action: PayloadAction<string | null>) => {

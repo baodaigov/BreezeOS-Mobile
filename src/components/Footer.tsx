@@ -19,8 +19,8 @@ export default function Footer(){
                     {!global.recentTasks.active && <Menu/>}
                     {!global.recentTasks.active && <Keyboard/>}
                     <div className='z-20 absolute bottom-0 flex flex-col w-full text-gray-100'>
-                        <div className='flex justify-center bg-gradient-to-b from-transparent to-black/30 px-5 text-lg'>
-                            <div className='mb-2'>
+                        <div className='flex justify-center bg-gradient-to-b from-transparent to-black/40 px-5 text-lg'>
+                            <div className='mb-1'>
                                 <Hammer
                                     onTap={() => global.recentTasks.active ? dispatch(openRecentTasks(false)) : dispatch(setMenuActive(!menuActive))}
                                     onPress={() => dispatch(openRecentTasks(true))}
