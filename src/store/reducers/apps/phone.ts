@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface phoneState {
-    active: boolean
     name: string
     image: any
     number: string
@@ -9,7 +8,6 @@ interface phoneState {
 }
 
 const initialState: phoneState = {
-    active: false,
     name: '',
     image: null,
     number: '',
@@ -20,9 +18,6 @@ const phone = createSlice({
     name: 'phone',
     initialState,
     reducers: {
-        setActive: (state, action: PayloadAction<boolean>) => {
-            state.active = action.payload;
-        },
         setName: (state, action: PayloadAction<string>) => {
             state.name = action.payload;
         },
@@ -38,6 +33,6 @@ const phone = createSlice({
     }
 });
 
-export const { setActive, setName, setImage, setPhoneNumber, setColor } = phone.actions;
+export const { setName, setImage, setPhoneNumber, setColor } = phone.actions;
 
 export default phone.reducer;

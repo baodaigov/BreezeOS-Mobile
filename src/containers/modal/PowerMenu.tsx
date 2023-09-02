@@ -71,20 +71,20 @@ export default function PowerMenu(){
                 <div className='flex flex-col justify-center'>
                     {!modal.emergencyMode && (
                         <div className='flex flex-col justify-center items-center mb-7'>
-                            <ActionButton className='mb-4 bg-gray-100/10 p-4 transition-all active:bg-gray-100/20' onClick={() => debounceAction(() => dispatch(setLocked(true)), 300)}>
+                            <ActionButton className='mb-4 bg-gray-100/10 backdrop-blur-md p-4 transition-all active:bg-gray-100/20' onClick={() => debounceAction(() => dispatch(setLocked(true)), 300)}>
                                 <BiLockAlt className='text-base'/>
                             </ActionButton>
                             <p className='text-xs'>Lock</p>
                         </div>
                     )}
                     <div className='flex flex-col justify-center items-center mb-7'>
-                        <ActionButton className='mb-4 bg-gray-100/10 p-4 transition-all active:bg-gray-100/20' onClick={() => switchModal('poweroff')}>
+                        <ActionButton className='mb-4 bg-gray-100/10 backdrop-blur-md p-4 transition-all active:bg-gray-100/20' onClick={() => switchModal('poweroff')}>
                             <FiPower className='text-base'/>
                         </ActionButton>
                         <p className='text-xs'>Power Off</p>
                     </div>
                     <div className='flex flex-col justify-center items-center mb-7'>
-                        <ActionButton className='mb-4 bg-gray-100/10 p-4 transition-all active:bg-gray-100/20' onClick={() => switchModal('restart')}>
+                        <ActionButton className='mb-4 bg-gray-100/10 backdrop-blur-md p-4 transition-all active:bg-gray-100/20' onClick={() => switchModal('restart')}>
                             <GrRotateLeft className='text-base'/>
                         </ActionButton>
                         <p className='text-xs'>Restart</p>
@@ -92,7 +92,7 @@ export default function PowerMenu(){
                     {modal.emergencyMode && (
                         <div className='flex flex-col justify-center items-center mb-7'>
                             <ActionButton
-                                className='mb-4 text-red-400 bg-red-400/10 p-3 transition-all active:bg-red-400/20'
+                                className='mb-4 text-red-400 bg-red-400/10 backdrop-blur-md p-3 transition-all active:bg-red-400/20'
                                 onClick={() => {
                                     dispatch(displayPowerMenu(false));
                                     debounceAction(() => {
@@ -119,24 +119,24 @@ export default function PowerMenu(){
                 </div>
             </div>
             <div className={twMerge('absolute px-12 flex flex-col items-center transition-all duration-200 opacity-0 pointer-events-none', modalType === 'poweroff' && 'opacity-100 pointer-events-auto')}>
-                <ActionButton className='mb-8 bg-gray-100/10 p-5 transition-all active:bg-gray-100/20' onClick={() => debounceAction(powerOff, 500)}>
+                <ActionButton className='mb-8 bg-gray-100/10 backdrop-blur-md p-5 transition-all active:bg-gray-100/20' onClick={() => debounceAction(powerOff, 500)}>
                     <FiPower className='text-xl'/>
                 </ActionButton>
                 <p className='mb-6 text-3xl font-bold'>Power off?</p>
                 <p className='text-xs'>Click the button above to power off this system.</p>
-                <ActionButton className='bg-gray-100/10 active:bg-gray-100/20 py-4 px-6 mt-20' onClick={() => switchModal('default')}>
+                <ActionButton className='bg-gray-100/10 backdrop-blur-md active:bg-gray-100/20 py-4 px-6 mt-20' onClick={() => switchModal('default')}>
                     <IoCloseOutline className='text-lg mr-1'/>
                     <p className='text-xs'>Cancel</p>
                 </ActionButton>
             </div>
             <div className={twMerge('absolute px-12 flex flex-col items-center transition-all duration-200 opacity-0 pointer-events-none', modalType === 'restart' && 'opacity-100 pointer-events-auto')}>
-                <ActionButton className='mb-8 bg-gray-100/10 p-5 transition-all active:bg-gray-100/20' onClick={() => debounceAction(restart, 500)}>
+                <ActionButton className='mb-8 bg-gray-100/10 backdrop-blur-md p-5 transition-all active:bg-gray-100/20' onClick={() => debounceAction(restart, 500)}>
                     <GrRotateLeft className='text-xl'/>
                 </ActionButton>
                 <p className='mb-6 text-3xl font-bold'>Restart?</p>
                 <p className='text-xs'>Click the button above to restart this system.</p>
                 <ActionButton
-                    className='bg-gray-100/10 active:bg-gray-100/20 py-4 px-6 mt-20'
+                    className='bg-gray-100/10 backdrop-blur-md active:bg-gray-100/20 py-4 px-6 mt-20'
                     onClick={() => switchModal('default')}
                 >
                     <IoCloseOutline className='text-xl mr-1'/>

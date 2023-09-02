@@ -5,7 +5,6 @@ import footerReducer from './reducers/footer';
 import globalReducer from './reducers/global';
 import headerReducer from './reducers/header';
 import keyboardReducer from './reducers/keyboard';
-import menuReducer from './reducers/menu';
 import modalReducer from './reducers/modal';
 import panelReducer from './reducers/panel';
 import settingsReducer from './reducers/settings';
@@ -16,7 +15,6 @@ const reducers = {
     global: globalReducer,
     header: headerReducer,
     keyboard: keyboardReducer,
-    menu: menuReducer,
     modal: modalReducer,
     panel: panelReducer,
     settings: settingsReducer,

@@ -7,7 +7,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "breezeos-mobile",
+    "productName": "BreezeOSMobile",
     "version": "0.1.0"
   },
   "tauri": {

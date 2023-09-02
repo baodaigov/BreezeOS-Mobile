@@ -17,7 +17,7 @@ export default function LockScreen(){
         <div className={twMerge('absolute bottom-full left-0 z-30 bg-center bg-no-repeat bg-cover h-screen w-full opacity-0 transition-all duration-[250ms]', isLocked && 'bottom-0 duration-500 opacity-100')} style={{ backgroundImage: `url(${wallpaper})`}}>
             <div className='flex flex-col justify-between h-screen w-full bg-black/70 backdrop-blur text-gray-100'>
                 <div className="flex flex-col items-center py-20 px-5">
-                    <TimeObj className='font-bold text-6xl mb-6'/>
+                    <TimeObj className='font-bold text-[70px] mb-1'/>
                     <div className="text-xs flex items-center">
                         <DateObj/>
                         <div className='w-[0.5px] h-4 mx-5 bg-gray-100'></div>
