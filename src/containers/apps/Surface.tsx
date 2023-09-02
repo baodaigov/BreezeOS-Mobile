@@ -1,15 +1,15 @@
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {  useAppSelector } from "../../store/hooks";
 import { twMerge } from "tailwind-merge";
 import SurfaceIcon from "../../icons/surface.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Surface() {
   const [splashScreen, setSplashScreen] = useState<boolean>(true);
-  const dispatch = useAppDispatch();
   const global = useAppSelector((state) => state.global);
   //   const Surface = useAppSelector((state) => state.Surface);
   const show = global.isHome === false && global.activeApp === "surface";
-  const disableSplashScreen = show && setTimeout(() => setSplashScreen(false), 4000);
+  
+  if(show) setTimeout(() => setSplashScreen(false), 4000);
 
   return (
     <>
