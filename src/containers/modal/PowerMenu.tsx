@@ -8,7 +8,7 @@ import { GrRotateLeft } from 'react-icons/gr';
 import { BiLockAlt } from 'react-icons/bi';
 import { IoCloseOutline } from 'react-icons/io5';
 import { TbSos } from 'react-icons/tb';
-import { setBlank, setDefault, setLocked, displayScreenSplash } from '../../store/reducers/global';
+import { setBlank, setDefault, setLocked, displayScreenSplash, setHome } from '../../store/reducers/global';
 import { twMerge } from 'tailwind-merge';
 import { setHeaderActive } from '../../store/reducers/header';
 import { setFooterActive } from '../../store/reducers/footer';
@@ -42,6 +42,7 @@ export default function PowerMenu(){
     function powerOff(){
         dispatch(setHeaderActive(false));
         dispatch(setFooterActive(false));
+        dispatch(setHome());
         setTimeout(() => {
             dispatch(displayScreenSplash(true));
         }, 1000);
