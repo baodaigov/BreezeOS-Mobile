@@ -6,7 +6,7 @@ import { FiChevronLeft, FiChevronRight, FiPlus } from "react-icons/fi";
 import ActionButton from "../../components/ActionButton";
 import { HiOutlineMenu } from "react-icons/hi";
 import { TbBoxMultiple } from "react-icons/tb";
-import surface, { openUrl } from "../../store/reducers/apps/surface";
+import { openUrl } from "../../store/reducers/apps/surface";
 import { LuRotateCcw } from "react-icons/lu";
 import { useDispatch } from "react-redux";
 import Hammer from "react-hammerjs";
