@@ -17,7 +17,7 @@ export default function Header(){
                 <>
                     <Panel/>
                     <Hammer onSwipeDown={() => dispatch(setPanelActive(true))} direction='DIRECTION_DOWN'>
-                        <div className={`z-20 absolute top-0 flex flex-col w-full text-xs text-center ${header.style}`}>
+                        <div className={`z-20 absolute top-0 flex flex-col w-full text-xs text-center ${header.switchStyle ? "text-gray-800" : "text-gray-100"}`}>
                             <div className='flex justify-between items-center py-1 px-3'>
                                 <div className='flex items-center'>
                                     {header.displayMenu && (
