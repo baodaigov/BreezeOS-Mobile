@@ -17,6 +17,7 @@ import Hammer from "react-hammerjs";
 export default function Surface() {
   const dispatch = useDispatch();
   const url = useAppSelector((state) => state.surface.url);
+  const wifi = useAppSelector((state) => state.settings.wifi);
   const [splashScreen, setSplashScreen] = useState<boolean>(true);
   const [hist, setHist] = useState<string[]>(["", ""]);
   const [inputValue, setInputValue] = useState<string>("");
@@ -31,13 +32,7 @@ export default function Surface() {
 
   useEffect(() => {
     if (!splashScreen) setNavDisplayed(true);
-
-    if (selectTabDisplayed) {
-      setNavDisplayed(false);
-    } else {
-      setNavDisplayed(true);
-    }
-  }, [splashScreen, selectTabDisplayed]);
+  }, [splashScreen]);
 
   const isValidURL = (string: string) => {
     var res = string.match(
@@ -106,57 +101,75 @@ export default function Surface() {
           </>
         ) : (
           <div className="h-full bg-zinc-100 pt-8 dark:bg-zinc-900">
-            <img className="absolute top-12 h-9 w-full hidden dark:block" src={SurfaceNoBg} />
-            <img className="absolute top-12 h-9 w-full dark:hidden" src={SurfaceNoBgD} />
-            <div className="relative h-full">
-              <div
-                className={twMerge(
-                  "absolute bottom-0 left-0 right-0 top-0 m-auto h-full overflow-hidden bg-white transition-all duration-300",
-                  selectTabDisplayed &&
-                    "h-[75%] w-[80%] rounded-xl outline outline-4 outline-offset-4 outline-blue-500 active:outline-blue-800 dark:active:outline-blue-300 active:transition-none",
-                )}
-              >
+            <img
+              className="absolute top-12 hidden h-9 w-full dark:block"
+              src={SurfaceNoBg}
+            />
+            <img
+              className="absolute top-12 h-9 w-full dark:hidden"
+              src={SurfaceNoBgD}
+            />
+            {wifi ? (
+              <div className="relative h-full">
                 <div
                   className={twMerge(
-                    "pointer-events-none flex h-0 items-center justify-between bg-zinc-900 px-4 text-zinc-100 transition-all duration-300 dark:bg-zinc-100 dark:text-zinc-900",
-                    selectTabDisplayed && "pointer-events-auto h-10",
+                    "absolute bottom-0 left-0 right-0 top-0 m-auto h-full overflow-hidden bg-white transition-all duration-300",
+                    selectTabDisplayed &&
+                      "h-[75%] w-[80%] rounded-xl outline outline-4 outline-offset-4 outline-blue-500 active:outline-blue-800 active:transition-none dark:active:outline-blue-300",
                   )}
-                >
-                  <p className="text-[13px]">{url && url}</p>
-                  {url && (
-                    <ActionButton
-                      className="p-1 text-[17px] transition-all duration-300 active:bg-zinc-100/10 active:transition-none dark:active:bg-zinc-900/10"
-                      onClick={() => {
-                        dispatch(openUrl(""));
-                        setDisplaySelectTab(false);
-                      }}
-                    >
-                      <HiMiniXMark />
-                    </ActionButton>
-                  )}
-                </div>
-                <div
-                  className="h-full"
-                  onClick={() => {
-                    setDisplaySelectTab(false);
-                    setNavDisplayed(true);
-                  }}
                 >
                   <div
-                    className={`h-full ${
-                      selectTabDisplayed && "pointer-events-none"
-                    }`}
+                    className={twMerge(
+                      "pointer-events-none flex h-0 scale-0 items-center justify-between bg-zinc-900 px-4 text-zinc-100 transition-all duration-300 dark:bg-zinc-100 dark:text-zinc-900",
+                      selectTabDisplayed &&
+                        "pointer-events-auto h-10 scale-100",
+                    )}
+                  >
+                    <p className="text-[13px]">{url && url}</p>
+                    {url && (
+                      <ActionButton
+                        className="p-1 text-[17px] transition-all duration-300 active:bg-zinc-100/10 active:transition-none dark:active:bg-zinc-900/10"
+                        onClick={() => {
+                          dispatch(openUrl(""));
+                          setDisplaySelectTab(false);
+                          setNavDisplayed(true);
+                        }}
+                      >
+                        <HiMiniXMark />
+                      </ActionButton>
+                    )}
+                  </div>
+                  <div
+                    className="h-full"
+                    onClick={() => {
+                      setDisplaySelectTab(false);
+                      setNavDisplayed(true);
+                    }}
                   >
                     <iframe
                       ref={surfaceFrameRef}
                       frameBorder={0}
-                      className="h-full w-full"
+                      className={`h-full w-full ${
+                        selectTabDisplayed &&
+                        "pointer-events-none overflow-hidden"
+                      }`}
                       src={url}
                     />
                   </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="flex h-full flex-col items-center justify-center space-y-6 px-8 text-center">
+                <p className="text-4xl font-bold">Internet is not enabled.</p>
+                <p className="text-sm">
+                  You need Internet connection in order to connect to this
+                  website.
+                </p>
+                <ActionButton className="bg-blue-600 px-6 py-3 text-sm text-zinc-100 transition-all duration-300 active:bg-blue-700 active:transition-none">
+                  <p className="font-bold">Reload</p>
+                </ActionButton>
+              </div>
+            )}
           </div>
         )}
         <div
@@ -168,9 +181,9 @@ export default function Surface() {
         >
           <div
             className={twMerge(
-              "relative mx-1 rounded-2xl bg-zinc-100/80 px-3 pb-8 backdrop-blur-md transition-all duration-300 dark:bg-zinc-800/80",
+              "relative mx-1 rounded-2xl bg-zinc-200/80 px-3 pb-8 backdrop-blur-md transition-all duration-300 dark:bg-zinc-800/80",
               navMinimized &&
-                "active:bg-zinc-400/50 active:transition-none dark:active:bg-zinc-700/80",
+                "active:bg-zinc-300/80 active:transition-none dark:active:bg-zinc-700/80",
             )}
             style={{ height: "146px" }}
             onClick={() => navMinimized && setNavMinimized(false)}
@@ -228,7 +241,14 @@ export default function Surface() {
                 </ActionButton>
                 <ActionButton
                   className="h-10 w-10 transition-all duration-300 active:bg-zinc-700/10 active:transition-none dark:active:bg-zinc-100/10"
-                  onClick={() => url && setDisplaySelectTab(true)}
+                  onClick={() =>
+                    url &&
+                    wifi &&
+                    setTimeout(() => {
+                      setDisplaySelectTab(true);
+                      setNavDisplayed(false);
+                    }, 0)
+                  }
                 >
                   <TbBoxMultiple />
                 </ActionButton>
