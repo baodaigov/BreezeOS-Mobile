@@ -23,7 +23,7 @@ export default function Modal({ title, description, buttons }: ModalProps){
                     <div className='flex'>
                         {buttons.map(i => (
                             <ActionButton className={twMerge('bg-transparent transition-all duration-200 active:bg-[#83aaff]/20 dark:active:bg-[#83aaff]/10 active:transition-none text-[#83aaff] rounded-full px-3 py-2 ml-2', i.disabled && 'text-gray-100/10 pointer-events-none')} onClick={i.action}>
-                                <p>{i.value}</p>
+                                <p className="font-semibold">{i.value}</p>
                             </ActionButton>
                         ))}
                     </div>

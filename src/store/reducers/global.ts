@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Wallpaper1 from "../../images/default.jpg";
-import Surface from "../../icons/surface.svg";
 
 interface globalState {
   wallpaper: any;
@@ -33,12 +32,22 @@ const initialState: globalState = {
   apps: [
     {
       name: "Phone",
-      icon: "https://raw.githubusercontent.com/yeyushengfan258/Citrus-icon-theme/7fac80833a94baf4d4a9132ea9475c2b819b5827/src/scalable/apps/firefox.svg",
+      icon: "https://raw.githubusercontent.com/breezeos/icons/main/breezeos-mobile/icons/phone.svg",
       id: "phone",
     },
     {
+      name: "Calendar",
+      icon: `https://raw.githubusercontent.com/breezeos/icons/main/breezeos-mobile/icons/calendar/calendar-${new Date().getDate()}.svg`,
+      id: "calendar",
+    },
+    {
+      name: "Photos",
+      icon: "https://raw.githubusercontent.com/yeyushengfan258/Citrus-icon-theme/master/src/scalable/apps/accessories-image-viewer.svg",
+      id: "photos"
+    },
+    {
       name: "Surface",
-      icon: Surface,
+      icon: "https://raw.githubusercontent.com/breezeos/icons/main/breezeos-mobile/icons/surface.svg",
       id: "surface",
     },
   ],

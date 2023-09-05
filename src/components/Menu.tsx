@@ -55,7 +55,7 @@ export default function Menu() {
       <div className="h-screen bg-black/60 text-gray-100 backdrop-blur-lg pb-16 flex flex-col">
         <div className="flex justify-center w-full px-6 py-8 relative bottom-0">
           <input
-            className="appearance-none border-none outline-none py-3 px-5 bg-white/5 flex items-center rounded-full text-xs w-56 text-gray-100 transition-all duration-300 placeholder:text-gray-100/20 focus:w-80"
+            className="appearance-none border-none outline-none py-3 px-5 bg-zinc-100/5 flex items-center rounded-full text-xs w-56 text-zinc-100 transition-all duration-300 placeholder:text-zinc-100/20 focus:w-80"
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

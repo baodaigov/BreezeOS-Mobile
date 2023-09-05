@@ -1,6 +1,5 @@
 import { useAppSelector } from "../../store/hooks";
 import { twMerge } from "tailwind-merge";
-import SurfaceIcon from "../../icons/surface.svg";
 import SurfaceNoBg from "../../icons/surface-nobg.svg";
 import SurfaceNoBgD from "../../icons/surface-nobg-d.svg";
 import React, { useEffect, useRef, useState } from "react";
@@ -27,7 +26,6 @@ export default function Surface() {
   const global = useAppSelector((state) => state.global);
   const show = global.isHome === false && global.activeApp === "surface";
   const surfaceFrameRef = useRef<HTMLIFrameElement>(null);
-
   if (show) setTimeout(() => setSplashScreen(false), 5000);
 
   useEffect(() => {
@@ -85,7 +83,7 @@ export default function Surface() {
               )}
             >
               <img
-                src={SurfaceIcon}
+                src="https://raw.githubusercontent.com/breezeos/icons/main/breezeos-mobile/icons/surface.svg"
                 className={twMerge(
                   "h-40 w-40 transition-all duration-500",
                   !splashScreen && "h-28 w-28",
@@ -151,8 +149,9 @@ export default function Surface() {
                       frameBorder={0}
                       className={`h-full w-full ${
                         selectTabDisplayed &&
-                        "pointer-events-none overflow-hidden"
+                        "pointer-events-none"
                       }`}
+                      scrolling={selectTabDisplayed ? "no" : "yes"}
                       src={url}
                     />
                   </div>
