@@ -8,22 +8,44 @@ import { FiChevronLeft, FiChevronRight, FiPlus } from "react-icons/fi";
 import ActionButton from "../../components/ActionButton";
 import { HiOutlineMenu } from "react-icons/hi";
 import { TbBoxMultiple } from "react-icons/tb";
-import { openUrl } from "../../store/reducers/apps/surface";
+import { openUrl, setSearchEngine } from "../../store/reducers/apps/surface";
 import { LuRotateCcw } from "react-icons/lu";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useDispatch } from "react-redux";
 import Hammer from "react-hammerjs";
 import Toggle from "../../components/Toggle";
-import { IoClose } from "react-icons/io5";
+import { IoChevronBack, IoClose } from "react-icons/io5";
+import { VscChevronRight } from "react-icons/vsc";
+import { IoMdCheckmark } from "react-icons/io";
 
 export default function Surface() {
+  interface WebsiteItemType {
+    title: string;
+    url: string;
+  }
   const dispatch = useDispatch();
+  const surface = useAppSelector((state) => state.surface);
   const url = useAppSelector((state) => state.surface.url);
   const wifi = useAppSelector((state) => state.settings.wifi);
-  const [splashScreen, setSplashScreen] = useState<boolean>(true);
+  const [splashScreen, setSplashScreen] = useState<boolean>(false);
   const [privateMode, setPrivateMode] = useState<boolean>(false);
   const [menuDisplayed, setDisplayMenu] = useState<boolean>(false);
+  const [searchEngineMenuDisplayed, setDisplaySearchEngineMenu] =
+    useState<boolean>(false);
+  const [menuSection, setMenuSection] = useState<string>("settings");
   const [hist, setHist] = useState<string[]>(["", ""]);
+  const bookmarks: WebsiteItemType[] = [
+    {
+      title: "BreezeOS Mobile",
+      url: "https://breezeos.github.io",
+    },
+  ];
+  const [history, setHistory] = useState<WebsiteItemType[]>([
+    {
+      title: "BreezeOS Mobile",
+      url: "https://breezeos.github.io",
+    },
+  ]);
   const [inputValue, setInputValue] = useState<string>("");
   const [navDisplayed, setNavDisplayed] = useState<boolean>(false);
   const [navMinimized, setNavMinimized] = useState<boolean>(false);
@@ -44,7 +66,7 @@ export default function Surface() {
     return res !== null;
   };
 
-  const action = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  function action(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
       var qry = inputValue;
 
@@ -61,8 +83,17 @@ export default function Surface() {
       setInputValue(qry);
       setHist([hist[0], qry]);
       dispatch(openUrl(qry));
+      if (!privateMode) {
+        setHistory([
+          {
+            title: isValidURL(inputValue) ? qry : `${inputValue} – Bing Search`,
+            url: qry,
+          },
+          ...history,
+        ]);
+      }
     }
-  };
+  }
 
   function reload() {
     const frameSrc = surfaceFrameRef.current;
@@ -88,6 +119,86 @@ export default function Surface() {
 
   const menuRef = useRef(null);
   useOutsideMenu(menuRef);
+
+  const WebsiteItem: React.FC<WebsiteItemType> = ({ title, url }) => {
+    return (
+      <div
+        className="flex w-full items-center justify-between rounded-full px-6 py-4 text-zinc-800 transition-all duration-300 last:mb-10 active:bg-zinc-800/10 active:transition-none dark:text-zinc-100 dark:active:bg-zinc-100/5"
+        onClick={() => {
+          setDisplayMenu(false);
+          setInputValue(url);
+          dispatch(openUrl(url));
+        }}
+      >
+        <div className="flex items-center">
+          <div className="flex flex-col">
+            <p className="mb-1 text-lg">{title}</p>
+            <p className="text-xs text-zinc-500">{url}</p>
+          </div>
+        </div>
+        <VscChevronRight className="text-xl text-zinc-700" />
+      </div>
+    );
+  };
+
+  function renderMenuTab() {
+    switch (menuSection) {
+      case "bookmarks":
+        return (
+          <div className="flex w-full flex-col py-2">
+            {bookmarks.map((i) => (
+              <WebsiteItem title={i.title} url={i.url} />
+            ))}
+          </div>
+        );
+      case "settings":
+        return (
+          <div className="w-full space-y-2 py-4">
+            <div className="flex items-center justify-between px-6 py-5">
+              <p className="text-sm font-bold">Private mode</p>
+              <Toggle
+                active={privateMode}
+                onToggle={() => setPrivateMode(!privateMode)}
+              />
+            </div>
+            <div
+              className="flex w-full items-center justify-between rounded-full px-6 py-5 transition-all duration-300 active:bg-zinc-800/10 active:transition-none dark:text-zinc-100 dark:active:bg-zinc-100/5"
+              onClick={() => setDisplaySearchEngineMenu(true)}
+            >
+              <p className="text-sm font-bold">Search engine</p>
+              <div className="flex items-center space-x-1">
+                <p className="text-sm text-zinc-400 dark:text-zinc-700">{surface.searchEngine}</p>
+                <VscChevronRight className="text-lg text-zinc-400 dark:text-zinc-700" />
+              </div>
+            </div>
+          </div>
+        );
+      case "history":
+        return (
+          <div className="relative flex h-[86%] w-full">
+            <div className="h-full w-full">
+              <div className="flex h-full w-full flex-col overflow-auto py-2">
+                {history.map((i) => (
+                  <WebsiteItem title={i.title} url={i.url} />
+                ))}
+              </div>
+            </div>
+            <div className="absolute bottom-0 flex w-full flex-row-reverse bg-gradient-to-t from-zinc-950 to-transparent pb-2">
+              <ActionButton
+                onClick={() => setHistory([])}
+                className={twMerge(
+                  "px-4 py-2 text-blue-500 transition-all duration-300 active:bg-blue-500/10 active:backdrop-blur-sm active:transition-none",
+                  !history.length &&
+                    "pointer-events-none text-zinc-900 opacity-10 dark:text-zinc-100",
+                )}
+              >
+                <p className="text-sm">Clear all</p>
+              </ActionButton>
+            </div>
+          </div>
+        );
+    }
+  }
 
   return (
     <>
@@ -147,7 +258,11 @@ export default function Surface() {
                   className={twMerge(
                     "absolute bottom-0 left-0 right-0 top-0 m-auto h-full overflow-hidden bg-white transition-all duration-300",
                     selectTabDisplayed &&
-                      `h-[75%] w-[80%] rounded-xl outline outline-4 outline-offset-4 ${privateMode ? "outline-zinc-900 active:outline-zinc-600 dark:outline-zinc-100 dark:active:outline-zinc-400" : "outline-blue-500 active:outline-blue-800 dark:active:outline-blue-300"} active:transition-none`,
+                      `h-[75%] w-[80%] rounded-xl outline outline-4 outline-offset-4 ${
+                        privateMode
+                          ? "outline-zinc-900 active:outline-zinc-600 dark:outline-zinc-100 dark:active:outline-zinc-400"
+                          : "outline-blue-500 active:outline-blue-800 dark:active:outline-blue-300"
+                      } active:transition-none`,
                   )}
                 >
                   <div
@@ -299,29 +414,112 @@ export default function Surface() {
         >
           <div
             className={twMerge(
-              "pointer-events-none absolute -bottom-full my-2 flex w-[97%] flex-col items-center rounded-3xl bg-gray-200 text-gray-800 opacity-0 transition-all duration-[600ms] dark:bg-zinc-950 dark:text-gray-100",
+              "pointer-events-none absolute -bottom-full my-2 flex h-[85%] w-[97%] flex-col items-center overflow-hidden rounded-3xl bg-zinc-100 text-zinc-800 opacity-0 transition-all duration-[600ms] dark:bg-zinc-950 dark:text-zinc-100",
               menuDisplayed && "pointer-events-auto bottom-0 opacity-100",
             )}
             ref={menuRef}
           >
-            <div className="relative flex w-full flex-col items-center px-6 py-8 pb-14">
+            <div className="relative flex h-full w-full flex-col px-6 py-5 pb-10">
+              <div
+                className={twMerge(
+                  "absolute left-full z-10 my-2 flex h-full w-full flex-col bg-zinc-100 px-5 text-zinc-800 transition-all duration-500 dark:bg-zinc-950 dark:text-zinc-100",
+                  searchEngineMenuDisplayed && "left-0",
+                )}
+              >
+                <div className="flex w-full items-center">
+                  <ActionButton
+                    className="p-2 transition-all duration-500 active:bg-zinc-800/10 active:transition-none dark:active:bg-zinc-100/10"
+                    onClick={() => setDisplaySearchEngineMenu(false)}
+                  >
+                    <IoChevronBack className="text-xl" />
+                  </ActionButton>
+                </div>
+                <div className="px-2 py-5">
+                  <p className="mb-6 ml-1 text-xl font-bold">
+                    Choose a search engine
+                  </p>
+                  <div className="space-y-2">
+                    <div
+                      className="flex w-full items-center justify-between rounded-full px-6 py-5 transition-all duration-300 active:bg-zinc-800/10 active:transition-none dark:text-zinc-100 dark:active:bg-zinc-100/5"
+                      onClick={() => {
+                        setDisplaySearchEngineMenu(false);
+                        dispatch(setSearchEngine("Bing"))
+                      }}
+                    >
+                      <p className="text-sm font-bold">Bing</p>
+                      {surface.searchEngine === "Bing" && <IoMdCheckmark className="text-lg text-blue-600" />}
+                    </div>
+                    <div
+                      className="flex w-full items-center justify-between rounded-full px-6 py-5 transition-all duration-300 active:bg-zinc-800/10 active:transition-none dark:text-zinc-100 dark:active:bg-zinc-100/5"
+                      onClick={() => {
+                        setDisplaySearchEngineMenu(false);
+                        dispatch(setSearchEngine("Google"))
+                      }}
+                    >
+                      <p className="text-sm font-bold">Google</p>
+                      {surface.searchEngine === "Google" && <IoMdCheckmark className="text-lg text-blue-600" />}
+                    </div>
+                    <div
+                      className="flex w-full items-center justify-between rounded-full px-6 py-5 transition-all duration-300 active:bg-zinc-800/10 active:transition-none dark:text-zinc-100 dark:active:bg-zinc-100/5"
+                      onClick={() => {
+                        setDisplaySearchEngineMenu(false);
+                        dispatch(setSearchEngine("DuckDuckGo"))
+                      }}
+                    >
+                      <p className="text-sm font-bold">DuckDuckGo</p>
+                      {surface.searchEngine === "DuckDuckGo" && <IoMdCheckmark className="text-lg text-blue-600" />}
+                    </div>
+                    <div
+                      className="flex w-full items-center justify-between rounded-full px-6 py-5 transition-all duration-300 active:bg-zinc-800/10 active:transition-none dark:text-zinc-100 dark:active:bg-zinc-100/5"
+                      onClick={() => {
+                        setDisplaySearchEngineMenu(false);
+                        dispatch(setSearchEngine("Yahoo Search"))
+                      }}
+                    >
+                      <p className="text-sm font-bold">Yahoo Search</p>
+                      {surface.searchEngine === "Yahoo Search" && <IoMdCheckmark className="text-lg text-blue-600" />}
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="relative flex w-full flex-row-reverse items-center">
                 <ActionButton
-                  className="p-2 transition-all duration-500 active:bg-gray-800/10 active:transition-none dark:active:bg-gray-100/10"
+                  className="p-2 transition-all duration-500 active:bg-zinc-800/10 active:transition-none dark:active:bg-zinc-100/10"
                   onClick={() => setDisplayMenu(false)}
                 >
                   <IoClose className="text-xl" />
                 </ActionButton>
-                <p className="pointer-events-none absolute flex w-full justify-center text-3xl font-semibold">
-                  Settings Menu
-                </p>
               </div>
-              <div className="w-full py-10 px-4">
-                <div className="flex justify-between items-center">
-                  <p className="text-sm font-bold">Private mode</p>
-                  <Toggle active={privateMode} onToggle={() => setPrivateMode(!privateMode)}/>
+              <div className="my-2 flex w-full rounded-full bg-zinc-200/60 p-[3px] dark:bg-zinc-900/40">
+                <div
+                  className={`flex w-full justify-center rounded-full py-2 transition-all duration-200 ${
+                    menuSection === "bookmarks" &&
+                    "bg-zinc-300/70 dark:bg-zinc-900/90"
+                  }`}
+                  onClick={() => setMenuSection("bookmarks")}
+                >
+                  <p className="text-xs">Bookmarks</p>
+                </div>
+                <div
+                  className={`flex w-full justify-center rounded-full py-2 transition-all duration-200 ${
+                    menuSection === "settings" &&
+                    "bg-zinc-300/70 dark:bg-zinc-900/90"
+                  }`}
+                  onClick={() => setMenuSection("settings")}
+                >
+                  <p className="text-xs">Settings</p>
+                </div>
+                <div
+                  className={`flex w-full justify-center rounded-full py-2 transition-all duration-200 ${
+                    menuSection === "history" &&
+                    "bg-zinc-300/70 dark:bg-zinc-900/90"
+                  }`}
+                  onClick={() => setMenuSection("history")}
+                >
+                  <p className="text-xs">History</p>
                 </div>
               </div>
+              {renderMenuTab()}
             </div>
           </div>
         </div>
