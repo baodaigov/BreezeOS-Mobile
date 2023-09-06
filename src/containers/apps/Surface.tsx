@@ -1,5 +1,6 @@
 import { useAppSelector } from "../../store/hooks";
 import { twMerge } from "tailwind-merge";
+import SurfacePrivate from "../../icons/surface-private.svg";
 import SurfaceNoBg from "../../icons/surface-nobg.svg";
 import SurfaceNoBgD from "../../icons/surface-nobg-d.svg";
 import React, { useEffect, useRef, useState } from "react";
@@ -12,12 +13,16 @@ import { LuRotateCcw } from "react-icons/lu";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useDispatch } from "react-redux";
 import Hammer from "react-hammerjs";
+import Toggle from "../../components/Toggle";
+import { IoClose } from "react-icons/io5";
 
 export default function Surface() {
   const dispatch = useDispatch();
   const url = useAppSelector((state) => state.surface.url);
   const wifi = useAppSelector((state) => state.settings.wifi);
   const [splashScreen, setSplashScreen] = useState<boolean>(true);
+  const [privateMode, setPrivateMode] = useState<boolean>(false);
+  const [menuDisplayed, setDisplayMenu] = useState<boolean>(false);
   const [hist, setHist] = useState<string[]>(["", ""]);
   const [inputValue, setInputValue] = useState<string>("");
   const [navDisplayed, setNavDisplayed] = useState<boolean>(false);
@@ -66,6 +71,24 @@ export default function Surface() {
     }
   }
 
+  function useOutsideMenu(ref: React.MutableRefObject<any>) {
+    useEffect(() => {
+      function handleClickOutside(event: any) {
+        if (ref.current && !ref.current.contains(event.target))
+          setDisplayMenu(false);
+      }
+
+      document.addEventListener("mousedown", handleClickOutside);
+
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+
+  const menuRef = useRef(null);
+  useOutsideMenu(menuRef);
+
   return (
     <>
       <div
@@ -80,15 +103,26 @@ export default function Surface() {
               className={twMerge(
                 "absolute bottom-0 left-0 right-0 top-0 m-auto flex h-full w-full items-center justify-center bg-blue-600 transition-all duration-500",
                 !splashScreen && "bottom-24 h-28 w-28 rounded-full",
+                privateMode && "bg-zinc-950",
               )}
             >
-              <img
-                src="https://raw.githubusercontent.com/breezeos/icons/main/breezeos-mobile/icons/surface.svg"
-                className={twMerge(
-                  "h-40 w-40 transition-all duration-500",
-                  !splashScreen && "h-28 w-28",
-                )}
-              />
+              {privateMode ? (
+                <img
+                  src={SurfacePrivate}
+                  className={twMerge(
+                    "h-40 w-40 transition-all duration-500",
+                    !splashScreen && "h-28 w-28",
+                  )}
+                />
+              ) : (
+                <img
+                  src="https://raw.githubusercontent.com/breezeos/icons/main/breezeos-mobile/icons/surface.svg"
+                  className={twMerge(
+                    "h-40 w-40 transition-all duration-500",
+                    !splashScreen && "h-28 w-28",
+                  )}
+                />
+              )}
             </div>
             <div className="flex h-full w-full flex-col items-center justify-center p-10 text-center">
               <p className="mt-40 text-xl">
@@ -113,7 +147,7 @@ export default function Surface() {
                   className={twMerge(
                     "absolute bottom-0 left-0 right-0 top-0 m-auto h-full overflow-hidden bg-white transition-all duration-300",
                     selectTabDisplayed &&
-                      "h-[75%] w-[80%] rounded-xl outline outline-4 outline-offset-4 outline-blue-500 active:outline-blue-800 active:transition-none dark:active:outline-blue-300",
+                      `h-[75%] w-[80%] rounded-xl outline outline-4 outline-offset-4 ${privateMode ? "outline-zinc-900 active:outline-zinc-600 dark:outline-zinc-100 dark:active:outline-zinc-400" : "outline-blue-500 active:outline-blue-800 dark:active:outline-blue-300"} active:transition-none`,
                   )}
                 >
                   <div
@@ -148,8 +182,7 @@ export default function Surface() {
                       ref={surfaceFrameRef}
                       frameBorder={0}
                       className={`h-full w-full ${
-                        selectTabDisplayed &&
-                        "pointer-events-none"
+                        selectTabDisplayed && "pointer-events-none"
                       }`}
                       scrolling={selectTabDisplayed ? "no" : "yes"}
                       src={url}
@@ -235,7 +268,10 @@ export default function Surface() {
                 <ActionButton className="h-10 w-10 transition-all duration-300 active:bg-zinc-700/10 active:transition-none dark:active:bg-zinc-100/10">
                   <FiPlus />
                 </ActionButton>
-                <ActionButton className="h-10 w-10 transition-all duration-300 active:bg-zinc-700/10 active:transition-none dark:active:bg-zinc-100/10">
+                <ActionButton
+                  className="h-10 w-10 transition-all duration-300 active:bg-zinc-700/10 active:transition-none dark:active:bg-zinc-100/10"
+                  onClick={() => setDisplayMenu(true)}
+                >
                   <HiOutlineMenu />
                 </ActionButton>
                 <ActionButton
@@ -251,6 +287,40 @@ export default function Surface() {
                 >
                   <TbBoxMultiple />
                 </ActionButton>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className={twMerge(
+            "pointer-events-none absolute bottom-0 left-0 right-0 top-0 z-10 flex h-full w-full justify-center bg-black/90 opacity-0 transition-all duration-[250ms]",
+            menuDisplayed && "pointer-events-auto opacity-100",
+          )}
+        >
+          <div
+            className={twMerge(
+              "pointer-events-none absolute -bottom-full my-2 flex w-[97%] flex-col items-center rounded-3xl bg-gray-200 text-gray-800 opacity-0 transition-all duration-[600ms] dark:bg-zinc-950 dark:text-gray-100",
+              menuDisplayed && "pointer-events-auto bottom-0 opacity-100",
+            )}
+            ref={menuRef}
+          >
+            <div className="relative flex w-full flex-col items-center px-6 py-8 pb-14">
+              <div className="relative flex w-full flex-row-reverse items-center">
+                <ActionButton
+                  className="p-2 transition-all duration-500 active:bg-gray-800/10 active:transition-none dark:active:bg-gray-100/10"
+                  onClick={() => setDisplayMenu(false)}
+                >
+                  <IoClose className="text-xl" />
+                </ActionButton>
+                <p className="pointer-events-none absolute flex w-full justify-center text-3xl font-semibold">
+                  Settings Menu
+                </p>
+              </div>
+              <div className="w-full py-10 px-4">
+                <div className="flex justify-between items-center">
+                  <p className="text-sm font-bold">Private mode</p>
+                  <Toggle active={privateMode} onToggle={() => setPrivateMode(!privateMode)}/>
+                </div>
               </div>
             </div>
           </div>
