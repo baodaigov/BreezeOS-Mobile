@@ -29,7 +29,7 @@ export default function Surface() {
   const url = useAppSelector((state) => state.surface.url);
   const wifi = useAppSelector((state) => state.settings.wifi);
   const [appearance, setAppearance] = useState<string>("dark");
-  const [splashScreen, setSplashScreen] = useState<boolean>(false);
+  const [splashScreen, setSplashScreen] = useState<boolean>(true);
   const [privateMode, setPrivateMode] = useState<boolean>(false);
   const [menuDisplayed, setDisplayMenu] = useState<boolean>(false);
   const [websiteMenuDisplayed, setDisplayWebsiteMenu] =
@@ -39,7 +39,7 @@ export default function Surface() {
   const [appearanceMenuDisplayed, setDisplayAppearanceMenu] =
     useState<boolean>(false);
   const [appearanceMenuSelection, setAppearanceSelection] =
-    useState<string>("System");
+    useState<string>("Dark");
   const [menuSection, setMenuSection] = useState<string>("settings");
   const [hist, setHist] = useState<string[]>(["", ""]);
   const [favorites, setFavorites] = useState<WebsiteItemType[]>([
