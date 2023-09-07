@@ -1168,27 +1168,39 @@ export default function Phone() {
           </div>
         </div>
         <div className="absolute bottom-9 w-full pb-1 transition-all duration-500">
-          <div className="mx-2 flex rounded-full bg-zinc-200/80 p-1 text-zinc-900 backdrop-blur-md transition-all duration-300 dark:bg-zinc-800/80 dark:text-zinc-100">
+          <div className="mx-2 flex rounded-full bg-zinc-200/80 p-1 backdrop-blur-md transition-all duration-300 dark:bg-zinc-800/80">
             <div
-              className="flex w-full items-center justify-center rounded-full py-3 text-xl transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:active:bg-zinc-700/30"
+              className={twMerge(
+                "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
+                section === 0 && "text-zinc-900 dark:text-zinc-100",
+              )}
               onClick={() => setSection(0)}
             >
               {section === 0 ? <TbStarFilled /> : <TbStar />}
             </div>
             <div
-              className="flex w-full items-center justify-center rounded-full py-3 text-xl transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:active:bg-zinc-700/30"
+              className={twMerge(
+                "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
+                section === 1 && "text-zinc-900 dark:text-zinc-100",
+              )}
               onClick={() => setSection(1)}
             >
               <TbHistory />
             </div>
             <div
-              className="flex w-full items-center justify-center rounded-full py-3 text-xl transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:active:bg-zinc-700/30"
+              className={twMerge(
+                "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
+                section === 2 && "text-zinc-900 dark:text-zinc-100",
+              )}
               onClick={() => setSection(2)}
             >
               {section === 2 ? <HiUser /> : <HiOutlineUser />}
             </div>
             <div
-              className="flex w-full items-center justify-center rounded-full py-3 text-xl transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:active:bg-zinc-700/30"
+              className={twMerge(
+                "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
+                section === 3 && "text-zinc-900 dark:text-zinc-100",
+              )}
               onClick={() => setSection(3)}
             >
               {section === 3 ? <IoKeypad /> : <IoKeypadOutline />}
