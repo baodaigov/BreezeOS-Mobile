@@ -4,7 +4,7 @@ import SurfacePrivate from "../../icons/surface-private.svg";
 import SurfaceNoBg from "../../icons/surface-nobg.svg";
 import SurfaceNoBgD from "../../icons/surface-nobg-d.svg";
 import React, { useEffect, useRef, useState } from "react";
-import { FiChevronLeft, FiChevronRight, FiPlus } from "react-icons/fi";
+import { FiCheck, FiChevronLeft, FiChevronRight, FiPlus } from "react-icons/fi";
 import ActionButton from "../../components/ActionButton";
 import { HiOutlineGlobe, HiOutlineMenu } from "react-icons/hi";
 import { TbBoxMultiple } from "react-icons/tb";
@@ -575,7 +575,20 @@ export default function Surface() {
                     <p className="text-sm">{url}</p>
                   </div>
                 </div>
-                <div className="px-2 py-5">
+                <div className="my-10 flex flex-col items-center justify-center space-y-5 px-6 text-center">
+                  <div className="flex items-center justify-center rounded-full bg-green-500/10 p-4 text-4xl text-green-500">
+                    <FiCheck />
+                  </div>
+                  <p className="text-xl font-bold">
+                    This connection is secure.
+                  </p>
+                  <p className="text-sm">
+                    This site is using a HTTPS protocol, and has a valid
+                    certificate, which means any of your informations will be
+                    securely sent to this site and cannot be intercepted.
+                  </p>
+                </div>
+                <div className="px-2 py-5 pt-0">
                   <div className="space-y-2">
                     <div
                       className={twMerge(

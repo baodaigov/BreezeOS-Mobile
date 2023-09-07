@@ -38,7 +38,7 @@ export default function Footer() {
                     },
                   }}
                 >
-                  <div className="rounded-full flex justify-center items-center transition duration-75 p-2 active:bg-gray-100/10">
+                  <div className="rounded-full flex justify-center items-center transition-all duration-200 p-2 active:bg-gray-100/10 active:transition-none">
                     <FiCircle />
                   </div>
                 </Hammer>

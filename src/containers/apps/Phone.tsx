@@ -24,7 +24,7 @@ import ActionButton from "../../components/ActionButton";
 import Sound from "../../sounds/call.mp3";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { VscChevronLeft, VscChevronRight } from "react-icons/vsc";
-import { HiOutlineUser, HiPhone, HiUser } from "react-icons/hi";
+import { HiOutlinePlus, HiOutlineUser, HiPhone } from "react-icons/hi";
 import {
   AiOutlineExclamation,
   AiOutlinePlus,
@@ -313,7 +313,7 @@ export default function Phone() {
               <VscChevronLeft className="text-xl" />
             </ActionButton>
             <ActionButton
-              className="p-2 text-sky-600 transition-all duration-200 active:bg-sky-600/10 active:transition-none"
+              className="p-2 text-sky-600 transition-all duration-200 active:bg-zinc-600/10 active:transition-none"
               onClick={() => setFavorite(!isFavorite)}
             >
               {isFavorite ? (
@@ -468,7 +468,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
               <p className="text-[9px] leading-4 tracking-widest opacity-0">
                 -
@@ -488,7 +488,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
               <p className="text-[9px] leading-4 tracking-widest">ABC</p>
             </div>
@@ -506,7 +506,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
               <p className="text-[9px] leading-4 tracking-widest">DEF</p>
             </div>
@@ -524,7 +524,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
               <p className="text-[9px] leading-4 tracking-widest">GHI</p>
             </div>
@@ -542,7 +542,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
               <p className="text-[9px] leading-4 tracking-widest">JKL</p>
             </div>
@@ -560,7 +560,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
               <p className="text-[9px] leading-4 tracking-widest">MNO</p>
             </div>
@@ -578,7 +578,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
               <p className="text-[9px] leading-4 tracking-widest">PQRS</p>
             </div>
@@ -596,7 +596,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
               <p className="text-[9px] leading-4 tracking-widest">TUV</p>
             </div>
@@ -614,7 +614,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
               <p className="text-[9px] leading-4 tracking-widest">WXYZ</p>
             </div>
@@ -632,7 +632,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
             </div>
           </Hammer>
@@ -649,7 +649,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
               <p className="text-[9px] leading-4 tracking-widest">+</p>
             </div>
@@ -667,7 +667,7 @@ export default function Phone() {
               },
             }}
           >
-            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-sky-600/10 active:transition-none">
+            <div className="flex h-16 w-full flex-col items-center justify-center rounded-full text-2xl transition-all duration-300 active:bg-zinc-600/10 active:transition-none">
               <p>{key}</p>
             </div>
           </Hammer>
@@ -741,10 +741,10 @@ export default function Phone() {
             ))}
             <div className="absolute bottom-24 flex w-full flex-row-reverse bg-gradient-to-t from-zinc-100 to-transparent p-6 dark:from-zinc-900">
               <ActionButton
-                className="bg-sky-600 p-3 text-gray-100 transition-all duration-300 active:bg-sky-800 active:transition-none"
+                className="bg-zinc-500/10 p-4 text-zinc-900 transition-all duration-300 active:bg-zinc-900/10 active:transition-none dark:text-zinc-100 dark:active:bg-zinc-300/10"
                 onClick={() => setAddCallerActive(true)}
               >
-                <AiOutlinePlus className="text-lg" />
+                <HiOutlinePlus className="text-xl" />
               </ActionButton>
             </div>
           </>
@@ -812,7 +812,7 @@ export default function Phone() {
             style={{ height: `${height}px` }}
             ref={addCallerMenuRef}
           >
-            <div className="relative flex w-full flex-col items-center px-6 py-8 pb-14">
+            <div className="relative flex w-full flex-col items-center px-6 py-8">
               <div className="relative flex w-full flex-row-reverse items-center">
                 <ActionButton
                   className="p-2 transition-all duration-500 active:bg-gray-800/10 active:transition-none dark:active:bg-gray-100/10"
@@ -845,20 +845,20 @@ export default function Phone() {
                   </div>
                 </div>
               </div>
-              <div className="relative h-[360px] w-full">
+              <div className="relative h-[345px] w-full">
                 <div
                   className={twMerge(
-                    "pointer-events-none absolute flex h-full w-full flex-col items-center justify-center text-center opacity-0 transition-all duration-[400ms]",
+                    "pointer-events-none absolute flex h-full w-full flex-col items-center justify-between text-center opacity-0 transition-all duration-[400ms]",
                     instructionShown && "pointer-events-auto opacity-100",
                   )}
                 >
-                  <div className="my-4 flex flex-col">
+                  <div className="mb-7 flex h-full flex-col">
                     {settings.darkMode ? (
-                      <img className="mb-4 w-full" src={ContactImgD} />
+                      <img className="h-full w-full" src={ContactImgD} />
                     ) : (
-                      <img className="my-8 h-full w-full" src={ContactImgL} />
+                      <img className="h-full w-full" src={ContactImgL} />
                     )}
-                    <p className="text-sm">
+                    <p className="mt-6 text-sm">
                       Adding contact will be very easy for you to identify who
                       they are.
                       <br />
@@ -866,7 +866,7 @@ export default function Phone() {
                     </p>
                   </div>
                   <ActionButton
-                    className="mt-6 bg-sky-700/20 px-7 py-3 font-semibold text-sky-700 transition-all duration-300 active:bg-sky-700/30 active:transition-none"
+                    className="bg-sky-700/20 px-7 py-3 font-semibold text-sky-700 transition-all duration-300 active:bg-sky-700/30 active:transition-none"
                     onClick={() => {
                       setInstructionShow(false);
                       setTimeout(() => setProcessStart(true), 1400);
@@ -1167,45 +1167,50 @@ export default function Phone() {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-9 w-full pb-1 transition-all duration-500">
-          <div className="mx-2 flex rounded-full bg-zinc-200/80 p-1 backdrop-blur-md transition-all duration-300 dark:bg-zinc-800/80">
-            <div
-              className={twMerge(
-                "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
-                section === 0 && "text-zinc-900 dark:text-zinc-100",
-              )}
-              onClick={() => setSection(0)}
-            >
-              {section === 0 ? <TbStarFilled /> : <TbStar />}
+        <div className="absolute bottom-10 w-full pb-1 transition-all duration-500">
+          <Hammer
+            onSwipeLeft={() => section !== 0 && setSection((prev) => prev - 1)}
+            onSwipeRight={() => section !== 3 && setSection((prev) => prev + 1)}
+          >
+            <div className="mx-2 flex rounded-full bg-zinc-200/80 p-1 backdrop-blur-md transition-all duration-300 dark:bg-zinc-800/80">
+              <div
+                className={twMerge(
+                  "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
+                  section === 0 && "text-zinc-900 dark:text-zinc-100",
+                )}
+                onClick={() => setSection(0)}
+              >
+                {section === 0 ? <TbStarFilled /> : <TbStar />}
+              </div>
+              <div
+                className={twMerge(
+                  "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
+                  section === 1 && "text-zinc-900 dark:text-zinc-100",
+                )}
+                onClick={() => setSection(1)}
+              >
+                <TbHistory />
+              </div>
+              <div
+                className={twMerge(
+                  "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
+                  section === 2 && "text-zinc-900 dark:text-zinc-100",
+                )}
+                onClick={() => setSection(2)}
+              >
+                <HiOutlineUser />
+              </div>
+              <div
+                className={twMerge(
+                  "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
+                  section === 3 && "text-zinc-900 dark:text-zinc-100",
+                )}
+                onClick={() => setSection(3)}
+              >
+                {section === 3 ? <IoKeypad /> : <IoKeypadOutline />}
+              </div>
             </div>
-            <div
-              className={twMerge(
-                "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
-                section === 1 && "text-zinc-900 dark:text-zinc-100",
-              )}
-              onClick={() => setSection(1)}
-            >
-              <TbHistory />
-            </div>
-            <div
-              className={twMerge(
-                "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
-                section === 2 && "text-zinc-900 dark:text-zinc-100",
-              )}
-              onClick={() => setSection(2)}
-            >
-              {section === 2 ? <HiUser /> : <HiOutlineUser />}
-            </div>
-            <div
-              className={twMerge(
-                "flex w-full items-center justify-center rounded-full py-3 text-xl text-zinc-300 transition-all duration-300 active:bg-zinc-300/80 active:transition-none dark:text-zinc-700 dark:active:bg-zinc-700/30",
-                section === 3 && "text-zinc-900 dark:text-zinc-100",
-              )}
-              onClick={() => setSection(3)}
-            >
-              {section === 3 ? <IoKeypad /> : <IoKeypadOutline />}
-            </div>
-          </div>
+          </Hammer>
         </div>
       </div>
       <div
