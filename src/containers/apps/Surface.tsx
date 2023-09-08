@@ -16,7 +16,6 @@ import Hammer from "react-hammerjs";
 import { IoChevronBack, IoChevronForward, IoClose } from "react-icons/io5";
 import { VscChevronRight } from "react-icons/vsc";
 import { IoMdCheckmark } from "react-icons/io";
-import { switchStyle } from "../../store/reducers/header";
 
 export default function Surface() {
   interface WebsiteItemType {
