@@ -13,7 +13,6 @@ import { LuRotateCcw } from "react-icons/lu";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useDispatch } from "react-redux";
 import Hammer from "react-hammerjs";
-import Toggle from "../../components/Toggle";
 import { IoChevronBack, IoClose } from "react-icons/io5";
 import { VscChevronRight } from "react-icons/vsc";
 import { IoMdCheckmark } from "react-icons/io";
@@ -29,7 +28,7 @@ export default function Surface() {
   const url = useAppSelector((state) => state.surface.url);
   const wifi = useAppSelector((state) => state.settings.wifi);
   const [appearance, setAppearance] = useState<string>("dark");
-  const [splashScreen, setSplashScreen] = useState<boolean>(true);
+  const [splashScreen, setSplashScreen] = useState<boolean>(false);
   const [privateMode, setPrivateMode] = useState<boolean>(false);
   const [menuDisplayed, setDisplayMenu] = useState<boolean>(false);
   const [websiteMenuDisplayed, setDisplayWebsiteMenu] =
@@ -193,10 +192,24 @@ export default function Surface() {
           <div className="w-full space-y-2 py-4">
             <div className="flex items-center justify-between px-6 py-5">
               <p className="font-bold">Private mode</p>
-              <Toggle
-                active={privateMode}
-                onToggle={() => setPrivateMode(!privateMode)}
-              />
+              <div
+                className={twMerge(
+                  "flex h-6 w-11 items-center rounded-full p-[2px] transition-all duration-300",
+                  privateMode
+                    ? "bg-blue-600"
+                    : `bg-zinc-900/10 ${
+                        appearance === "dark" && "bg-zinc-100/5"
+                      }`,
+                )}
+                onClick={() => setPrivateMode(!privateMode)}
+              >
+                <div
+                  className={twMerge(
+                    "h-5 w-5 rounded-full bg-zinc-100 transition-all duration-300 active:w-6",
+                    privateMode && "translate-x-full active:w-5",
+                  )}
+                ></div>
+              </div>
             </div>
             <div
               className={twMerge(
@@ -791,8 +804,8 @@ export default function Surface() {
                   >
                     <div
                       className={twMerge(
-                        "mr-2 flex h-7 w-7 items-center justify-center rounded-full bg-zinc-800/10 text-zinc-100",
-                        appearance === "dark" && "bg-zinc-100/10",
+                        "mr-2 flex p-[6px] items-center justify-center rounded-full bg-zinc-800/10 text-zinc-900",
+                        appearance === "dark" && "bg-zinc-100/10 text-zinc-100",
                       )}
                     >
                       <HiOutlineGlobe className="text-base" />

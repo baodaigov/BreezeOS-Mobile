@@ -786,7 +786,16 @@ export default function Phone() {
                       </ActionButton>
                     </div>
                     {number.length !== 0 && (
-                      <Hammer onTap={() => setNumber(number.slice(0, -1))}>
+                      <Hammer
+                        onPress={() => setNumber(number.slice(0, -1))}
+                        options={{
+                          recognizers: {
+                            press: {
+                              time: 0,
+                            },
+                          },
+                        }}
+                      >
                         <div className="absolute right-0 z-10 flex items-center justify-center rounded-full p-3 transition-all duration-200 active:bg-gray-800/10 active:transition-none dark:active:bg-gray-100/10">
                           <IoBackspaceOutline className="text-lg" />
                         </div>

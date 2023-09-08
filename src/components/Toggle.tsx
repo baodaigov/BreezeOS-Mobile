@@ -3,35 +3,27 @@ import { twMerge } from "tailwind-merge";
 interface ToggleProps {
   active: boolean;
   disabled?: boolean;
-  size?: number;
   onToggle: React.MouseEventHandler<HTMLDivElement>;
 }
 
-export default function Toggle({
-  active,
-  disabled,
-  size = 16,
-  onToggle,
-}: ToggleProps) {
+export default function Toggle({ active, disabled, onToggle }: ToggleProps) {
   return (
     <div
       className={twMerge(
-        "flex items-center rounded-full p-1 transition-all duration-300",
+        "flex h-6 w-11 items-center rounded-full p-[2px] transition-all duration-300",
         active ? "bg-blue-600" : "bg-zinc-900/10 dark:bg-zinc-100/5",
-        disabled && "pointer-events-none opacity-50",
+        disabled && "opacity-50",
       )}
-      style={{ width: `${size + 31}px`, height: `${size + 8}px` }}
       onClick={onToggle}
     >
-      <div className="relative flex w-full items-center">
-        <div
-          className={`absolute ${active ? "right-0" : "left-0"} rounded-full bg-zinc-100 transition-all duration-300`}
-          style={{
-            width: `${size}px`,
-            height: `${size}px`,
-          }}
-        ></div>
-      </div>
+      <div
+        className={twMerge(
+          "h-5 w-5 active:w-6 rounded-full bg-zinc-100 transition-all duration-300",
+          active && "translate-x-full active:w-5",
+        )}
+      ></div>
     </div>
   );
 }
+
+//
