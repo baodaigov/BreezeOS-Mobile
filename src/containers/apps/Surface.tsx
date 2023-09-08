@@ -13,9 +13,10 @@ import { LuRotateCcw } from "react-icons/lu";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useDispatch } from "react-redux";
 import Hammer from "react-hammerjs";
-import { IoChevronBack, IoClose } from "react-icons/io5";
+import { IoChevronBack, IoChevronForward, IoClose } from "react-icons/io5";
 import { VscChevronRight } from "react-icons/vsc";
 import { IoMdCheckmark } from "react-icons/io";
+import { switchStyle } from "../../store/reducers/header";
 
 export default function Surface() {
   interface WebsiteItemType {
@@ -66,7 +67,7 @@ export default function Surface() {
         setAppearance("light");
       }
     }
-  }, [settings, splashScreen, appearanceMenuSelection]);
+  }, [splashScreen, appearanceMenuSelection]);
 
   const isValidURL = (string: string) => {
     var res = string.match(
@@ -375,13 +376,12 @@ export default function Surface() {
                 >
                   <div
                     className={twMerge(
-                      "pointer-events-none flex h-0 scale-0 items-center justify-between bg-zinc-900 px-4 text-zinc-100 transition-all duration-300",
+                      "pointer-events-none flex h-0 items-center justify-between bg-zinc-900 px-4 text-zinc-100 transition-all duration-300",
                       appearance === "dark" && "bg-zinc-100 text-zinc-900",
-                      selectTabDisplayed &&
-                        "pointer-events-auto h-10 scale-100",
+                      selectTabDisplayed && "pointer-events-auto h-10",
                     )}
                   >
-                    <p className="text-[13px]">{url && url}</p>
+                    <p className="text-[13px]">{url}</p>
                     {url && (
                       <ActionButton
                         className={twMerge(
@@ -574,18 +574,20 @@ export default function Surface() {
                   websiteMenuDisplayed && "left-0",
                 )}
               >
-                <div className="relative flex w-full items-center px-2">
-                  <ActionButton
-                    className={twMerge(
-                      "p-2 transition-all duration-500 active:bg-zinc-800/10 active:transition-none",
-                      appearance === "dark" && "active:bg-zinc-100/10",
-                    )}
-                    onClick={() => setDisplayWebsiteMenu(false)}
-                  >
-                    <IoChevronBack className="text-xl" />
-                  </ActionButton>
-                  <div className="pointer-events-none absolute flex h-full w-full items-center justify-center">
-                    <p className="text-sm">{url}</p>
+                <div className="flex w-full items-center px-2">
+                  <div className="relative h-9 w-full">
+                    <ActionButton
+                      className={twMerge(
+                        "absolute p-2 transition-all duration-500 active:bg-zinc-800/10 active:transition-none",
+                        appearance === "dark" && "active:bg-zinc-100/10",
+                      )}
+                      onClick={() => setDisplayWebsiteMenu(false)}
+                    >
+                      <IoChevronBack className="text-xl" />
+                    </ActionButton>
+                    <div className="pointer-events-none absolute flex h-full w-full items-center justify-center">
+                      <p className="text-sm">{url}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="my-10 flex flex-col items-center justify-center space-y-5 px-6 text-center">
@@ -625,6 +627,16 @@ export default function Surface() {
                       }}
                     >
                       <p className="font-bold">Add to Favorites</p>
+                    </div>
+                    <div
+                      className={twMerge(
+                        "flex w-full items-center justify-between rounded-full px-6 py-5 transition-all duration-300 active:bg-zinc-800/10 active:transition-none",
+                        appearance === "dark" &&
+                          "text-zinc-100 active:bg-zinc-100/5",
+                      )}
+                      onClick={() => navigator.clipboard.writeText(url)}
+                    >
+                      <p className="font-bold">Copy Link</p>
                     </div>
                     <div
                       className={twMerge(
@@ -797,20 +809,24 @@ export default function Surface() {
                 {url && (
                   <ActionButton
                     className={twMerge(
-                      "mr-2 w-80 justify-start p-1 transition-all duration-500 active:bg-zinc-800/10 active:transition-none",
+                      "mr-2 w-80 justify-between p-1 transition-all duration-500 active:bg-zinc-800/10 active:transition-none",
                       appearance === "dark" && "active:bg-zinc-100/10",
                     )}
                     onClick={() => setDisplayWebsiteMenu(true)}
                   >
-                    <div
-                      className={twMerge(
-                        "mr-2 flex p-[6px] items-center justify-center rounded-full bg-zinc-800/10 text-zinc-900",
-                        appearance === "dark" && "bg-zinc-100/10 text-zinc-100",
-                      )}
-                    >
-                      <HiOutlineGlobe className="text-base" />
+                    <div className="flex items-center">
+                      <div
+                        className={twMerge(
+                          "mr-2 flex items-center justify-center rounded-full bg-zinc-800/10 p-[6px] text-zinc-900",
+                          appearance === "dark" &&
+                            "bg-zinc-100/10 text-zinc-100",
+                        )}
+                      >
+                        <HiOutlineGlobe className="text-base" />
+                      </div>
+                      <p className="text-left text-sm">{url}</p>
                     </div>
-                    <p className="text-sm">{url}</p>
+                    <IoChevronForward className="text-lg text-zinc-100/10"></IoChevronForward>
                   </ActionButton>
                 )}
               </div>

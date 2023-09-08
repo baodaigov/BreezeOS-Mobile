@@ -1,38 +1,45 @@
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { setPanelActive } from '../store/reducers/panel';
-import Panel from './Panel';
-import Status from './Status';
-import TimeObj from './TimeObj';
-import Hammer from 'react-hammerjs';
-import ActionButton from './ActionButton';
-import { FiCircle } from 'react-icons/fi';
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { setPanelActive } from "../store/reducers/panel";
+import Panel from "./Panel";
+import Status from "./Status";
+import TimeObj from "./TimeObj";
+import Hammer from "react-hammerjs";
+import ActionButton from "./ActionButton";
+import { FiCircle } from "react-icons/fi";
 
-export default function Header(){
-    const dispatch = useAppDispatch();
-    const header = useAppSelector(state => state.header);
+export default function Header() {
+  const dispatch = useAppDispatch();
+  const header = useAppSelector((state) => state.header);
 
-    return (
+  return (
+    <>
+      {header.active && (
         <>
-            {header.active && (
-                <>
-                    <Panel/>
-                    <Hammer onSwipeDown={() => dispatch(setPanelActive(true))} direction='DIRECTION_DOWN'>
-                        <div className={`z-20 absolute top-0 flex flex-col w-full text-xs text-center ${header.switchStyle ? "text-gray-800" : "text-gray-100"}`}>
-                            <div className='flex justify-between items-center py-1 px-3'>
-                                <div className='flex items-center'>
-                                    {header.displayMenu && (
-                                        <ActionButton className='p-[6px] mr-1 active:bg-gray-100/10'>
-                                            <FiCircle/>
-                                        </ActionButton>
-                                    )}
-                                    <TimeObj className='mr-2'/>
-                                </div>
-                                <Status onClick={() => dispatch(setPanelActive(true))}/>
-                            </div>
-                        </div>
-                    </Hammer>
-                </>
-            )}
+          <Panel />
+          <Hammer
+            onSwipeDown={() => dispatch(setPanelActive(true))}
+            direction="DIRECTION_DOWN"
+          >
+            <div
+              className={`absolute top-0 z-20 flex w-full flex-col text-center text-xs ${
+                header.switchStyle ? "text-gray-800" : "text-gray-100"
+              }`}
+            >
+              <div className="flex items-center justify-between px-3 py-1">
+                <div className="flex items-center">
+                  {header.displayMenu && (
+                    <ActionButton className="mr-1 p-[6px] active:bg-gray-100/10">
+                      <FiCircle />
+                    </ActionButton>
+                  )}
+                  <TimeObj className="mr-2" />
+                </div>
+                <Status onClick={() => dispatch(setPanelActive(true))} />
+              </div>
+            </div>
+          </Hammer>
         </>
-    )
+      )}
+    </>
+  );
 }
