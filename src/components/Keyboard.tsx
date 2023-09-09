@@ -331,15 +331,24 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
             height: !emojiKeyboard ? "286px" : "336px",
           }}
         >
-          <div className="relative mb-1 flex h-[34px] w-full flex-row-reverse">
+          <div className="relative mb-1 flex h-[34px] w-full flex-row-reverse px-1">
+            {/* <ActionButton
+              className={twMerge(
+                "p-2 text-lg transition-all duration-300 active:bg-zinc-800/10 active:transition-none",
+                theme === "dark" && "active:bg-zinc-200/5",
+              )}
+              onClick={() => dispatch(setKeyboardSound(!keyboard.sound))}
+            >
+              {keyboard.sound ? <HiOutlineVolumeUp /> : <HiOutlineVolumeOff />}
+            </ActionButton> */}
             <ActionButton
               className={twMerge(
-                "p-2 transition-all duration-300 active:bg-zinc-800/10 active:transition-none",
+                "p-2 text-lg transition-all duration-300 active:bg-zinc-800/10 active:transition-none",
                 theme === "dark" && "active:bg-zinc-200/5",
               )}
               onClick={() => dispatch(setKeyboardActive(false))}
             >
-              <HiMiniXMark className="text-lg" />
+              <HiMiniXMark />
             </ActionButton>
             <div
               className={twMerge(
