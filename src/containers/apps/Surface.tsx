@@ -611,7 +611,6 @@ export default function Surface() {
                           "text-zinc-100 active:bg-zinc-100/5",
                       )}
                       onClick={() => {
-                        setDisplayWebsiteMenu(false);
                         setFavorites([
                           {
                             title: `${
@@ -623,6 +622,7 @@ export default function Surface() {
                           },
                           ...favorites,
                         ]);
+                        setDisplayWebsiteMenu(false);
                       }}
                     >
                       <p className="font-bold">Add to Favorites</p>
@@ -633,7 +633,10 @@ export default function Surface() {
                         appearance === "dark" &&
                           "text-zinc-100 active:bg-zinc-100/5",
                       )}
-                      onClick={() => navigator.clipboard.writeText(url)}
+                      onClick={() => {
+                        navigator.clipboard.writeText(url);
+                        setDisplayWebsiteMenu(false);
+                      }}
                     >
                       <p className="font-bold">Copy Link</p>
                     </div>
