@@ -5,10 +5,11 @@ import ActionButton from "./ActionButton";
 import { setKeyboardActive } from "../store/reducers/keyboard";
 import Hammer from "react-hammerjs";
 import { HiMiniXMark } from "react-icons/hi2";
-import { FiChevronLeft, FiGlobe } from "react-icons/fi";
+import { FiChevronLeft } from "react-icons/fi";
 import {
   PiBowlFoodBold,
   PiFlagBold,
+  PiGlobeBold,
   PiLightbulbBold,
   PiSmileyBold,
 } from "react-icons/pi";
@@ -17,15 +18,13 @@ import { MdKeyboardReturn, MdOutlineCardTravel } from "react-icons/md";
 import { HiOutlineBackspace } from "react-icons/hi";
 import { TbCircleArrowUp, TbCircleArrowUpFilled } from "react-icons/tb";
 import { BiFootball } from "react-icons/bi";
+import { FaCircleHalfStroke } from "react-icons/fa6";
 
-interface KeyboardProps {
-  theme?: "dark" | "light";
-}
-
-export default function Keyboard({ theme = "dark" }: KeyboardProps) {
+export default function Keyboard() {
   const dispatch = useAppDispatch();
   const keyboard = useAppSelector((state) => state.keyboard);
   const lang = useAppSelector((state) => state.keyboard.lang);
+  const [theme, setTheme] = useState<string>("dark");
   const [char, setChar] = useState<string[]>([]);
 
   const keysArray = [
@@ -114,7 +113,7 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
     if (k === "backspace") return setChar(char.slice(0, -1));
     if (k === "shift") return setShift(!shift);
     if (k === "123") return setNum(!num);
-    if (k === "return") return setChar([...char, " "]);
+    if (k === "return") return setChar([...char, "\n"]);
     if (k === "space") return setChar([...char, " "]);
     if (k === "lang")
       return setTimeout(
@@ -144,7 +143,7 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
           >
             <div
               className={twMerge(
-                `relative m-[3px] flex w-[38px] items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none`,
+                `relative flex w-[38px] items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-lg text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none`,
                 theme === "dark" &&
                   "bg-zinc-500/5 text-zinc-100 active:bg-zinc-400/10",
               )}
@@ -158,8 +157,8 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
           <Hammer onTap={() => keyClick(key)}>
             <div
               className={twMerge(
-                `relative m-[3px] flex w-[60px] items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none ${
-                  num && "w-[104px]"
+                `relative flex w-[65px] items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-lg text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none ${
+                  num && "w-[107px]"
                 }`,
                 theme === "dark" &&
                   "bg-zinc-500/5 text-zinc-100 active:bg-zinc-400/10",
@@ -183,8 +182,8 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
           >
             <div
               className={twMerge(
-                `relative m-[3px] flex w-[60px] items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none ${
-                  num && "w-[104px]"
+                `relative flex w-[65px] items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-lg text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none ${
+                  num && "w-[107px]"
                 }`,
                 theme === "dark" &&
                   "bg-zinc-500/5 text-zinc-100 active:bg-zinc-400/10",
@@ -208,7 +207,7 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
           >
             <div
               className={twMerge(
-                "relative m-[3px] flex w-10 items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-xs text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
+                "relative flex w-10 items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-xs text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
                 theme === "dark" &&
                   "bg-zinc-500/5 text-zinc-100 active:bg-zinc-400/10",
               )}
@@ -222,7 +221,7 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
           <Hammer onTap={() => keyClick(key)}>
             <div
               className={twMerge(
-                "relative m-[3px] flex w-8 items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
+                "relative flex w-8 items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-lg text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
                 theme === "dark" &&
                   "bg-zinc-500/5 text-zinc-100 active:bg-zinc-400/10",
               )}
@@ -236,12 +235,12 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
           <Hammer onTap={() => keyClick(key)}>
             <div
               className={twMerge(
-                "relative m-[3px] flex w-8 items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
+                "relative flex w-8 items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-lg text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
                 theme === "dark" &&
                   "bg-zinc-500/5 text-zinc-100 active:bg-zinc-400/10",
               )}
             >
-              <FiGlobe />
+              <PiGlobeBold />
             </div>
           </Hammer>
         );
@@ -250,7 +249,7 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
           <Hammer onTap={() => keyClick(key)}>
             <div
               className={twMerge(
-                "relative m-[3px] flex w-[198px] items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-xs text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
+                "relative flex w-[198px] items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-xs text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
                 theme === "dark" &&
                   "bg-zinc-500/5 text-zinc-100 active:bg-zinc-400/10",
               )}
@@ -264,7 +263,7 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
           <Hammer onTap={() => keyClick(key)}>
             <div
               className={twMerge(
-                "relative m-[3px] flex w-28 items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
+                "relative flex w-28 items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-lg text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
                 theme === "dark" &&
                   "bg-zinc-500/5 text-zinc-100 active:bg-zinc-400/10",
               )}
@@ -278,7 +277,7 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
           <Hammer onTap={() => keyClick(key)}>
             <div
               className={twMerge(
-                "relative m-[3px] flex w-[38px] items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
+                "relative flex w-[38px] items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-lg text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
                 theme === "dark" &&
                   "bg-zinc-500/5 text-zinc-100 active:bg-zinc-400/10",
               )}
@@ -324,23 +323,34 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
       >
         <div
           className={twMerge(
-            "mx-1 rounded-2xl bg-zinc-100/80 px-2 py-2 pb-8 text-zinc-900 backdrop-blur-md transition-all duration-500",
+            "mx-1 rounded-2xl bg-zinc-100/80 px-[6px] py-2 pb-8 text-zinc-900 backdrop-blur-md transition-all duration-500",
             theme === "dark" && "bg-zinc-900/80 text-zinc-100",
           )}
           style={{
-            height: !emojiKeyboard ? "286px" : "336px",
+            height: !emojiKeyboard ? "292px" : "336px",
           }}
         >
-          <div className="relative mb-1 flex h-[34px] w-full flex-row-reverse px-1">
-            {/* <ActionButton
-              className={twMerge(
-                "p-2 text-lg transition-all duration-300 active:bg-zinc-800/10 active:transition-none",
-                theme === "dark" && "active:bg-zinc-200/5",
-              )}
-              onClick={() => dispatch(setKeyboardSound(!keyboard.sound))}
-            >
-              {keyboard.sound ? <HiOutlineVolumeUp /> : <HiOutlineVolumeOff />}
-            </ActionButton> */}
+          <div className="relative mb-1 flex h-[34px] w-full justify-between px-1">
+            <div className="flex space-x-1">
+              <ActionButton
+                className={twMerge(
+                  "p-2 text-sm transition-all duration-300 active:bg-zinc-800/10 active:transition-none",
+                  theme === "dark" && "active:bg-zinc-200/5",
+                )}
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              >
+                <FaCircleHalfStroke />
+              </ActionButton>
+              {/* <ActionButton
+                className={twMerge(
+                  "p-2 text-lg transition-all duration-300 active:bg-zinc-800/10 active:transition-none",
+                  theme === "dark" && "active:bg-zinc-200/5",
+                )}
+                onClick={() => dispatch(setKeyboardSound(!keyboard.sound))}
+              >
+                {keyboard.sound ? <HiOutlineVolumeUp /> : <HiOutlineVolumeOff />}
+              </ActionButton> */}
+            </div>
             <ActionButton
               className={twMerge(
                 "p-2 text-lg transition-all duration-300 active:bg-zinc-800/10 active:transition-none",
@@ -362,12 +372,12 @@ export default function Keyboard({ theme = "dark" }: KeyboardProps) {
           <div className="relative h-full w-full">
             <div
               className={twMerge(
-                "pointer-events-none absolute flex w-full flex-col opacity-0 transition-all duration-300",
+                "pointer-events-none absolute flex w-full flex-col space-y-1 opacity-0 transition-all duration-300",
                 !emojiKeyboard && "pointer-events-auto opacity-100",
               )}
             >
               {keysType?.map((keys) => (
-                <div className="flex w-full justify-center">
+                <div className="flex w-full justify-center space-x-1">
                   {keys.map((key) => (
                     <>{generate(key)}</>
                   ))}
