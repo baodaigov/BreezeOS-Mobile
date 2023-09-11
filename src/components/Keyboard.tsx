@@ -25,7 +25,7 @@ export default function Keyboard() {
   const keyboard = useAppSelector((state) => state.keyboard);
   const lang = useAppSelector((state) => state.keyboard.lang);
   const [theme, setTheme] = useState<string>("dark");
-  const [char, setChar] = useState<string[]>([]);
+  const [char, setChar] = useState<string>("");
 
   const keysArray = [
     ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
@@ -113,8 +113,8 @@ export default function Keyboard() {
     if (k === "backspace") return setChar(char.slice(0, -1));
     if (k === "shift") return setShift(!shift);
     if (k === "123") return setNum(!num);
-    if (k === "return") return setChar([...char, "\n"]);
-    if (k === "space") return setChar([...char, " "]);
+    if (k === "return") return setChar((prev) => prev += "\n");
+    if (k === "space") return setChar((prev) => prev += "\ ");
     if (k === "lang")
       return setTimeout(
         () => setLangIndex((prev) => (prev === lang.length - 1 ? 0 : prev + 1)),
@@ -122,7 +122,7 @@ export default function Keyboard() {
       );
     if (k === "emoji") return setEmojiKeyboard(true);
 
-    return setChar([...char, key]);
+    return setChar((prev) => prev += key);
   }
 
   function generate(key: string) {
@@ -274,7 +274,12 @@ export default function Keyboard() {
         );
       default:
         return (
-          <Hammer onTap={() => keyClick(key)}>
+          <Hammer
+            onTap={() => {
+              keyClick(key);
+              keyboard.sound && console.log('wef')
+            }}
+          >
             <div
               className={twMerge(
                 "relative flex w-[38px] items-center justify-center rounded-md bg-zinc-100/20 px-1 py-3 text-lg text-zinc-800 transition-all duration-300 active:-translate-y-1 active:bg-zinc-100/40 active:transition-none",
@@ -312,7 +317,7 @@ export default function Keyboard() {
     <>
       {keyboard.active && (
         <div className="absolute top-8 w-full rounded-2xl bg-zinc-900 py-6 text-center font-bold text-zinc-100">
-          <p className="text-xl">{char.join("")}</p>
+          <p className="text-xl">{char}</p>
         </div>
       )}
       <div
