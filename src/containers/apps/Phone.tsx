@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { twMerge } from "tailwind-merge";
 import {
   setColor,
   setImage,
   setName,
   setPhoneNumber,
-} from "../../store/reducers/apps/phone";
-import EmergencyBg from "../../images/emergency-bg.jpeg";
-import avatar1 from "../../images/cyplucastero.jpg";
+} from "@/store/reducers/apps/phone";
+import EmergencyBg from "@/images/emergency-bg.jpeg";
+import avatar1 from "@/images/cyplucastero.jpg";
 import { BiSolidMicrophoneOff, BiPencil } from "react-icons/bi";
 import { IoIosKeypad } from "react-icons/io";
 import { FaVolumeUp } from "react-icons/fa";
@@ -20,8 +20,8 @@ import {
   IoKeypad,
   IoKeypadOutline,
 } from "react-icons/io5";
-import ActionButton from "../../components/ActionButton";
-import Sound from "../../sounds/call.mp3";
+import ActionButton from "@/components/ActionButton";
+import Sound from "@/sounds/call.mp3";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { VscChevronLeft, VscChevronRight } from "react-icons/vsc";
 import { HiOutlinePlus, HiOutlineUser, HiPhone } from "react-icons/hi";
@@ -32,8 +32,8 @@ import {
 } from "react-icons/ai";
 import { signal } from "@preact/signals";
 import Hammer from "react-hammerjs";
-import ContactImgD from "../../images/contact-d.svg";
-import ContactImgL from "../../images/contact-l.svg";
+import ContactImgD from "@/images/contact-d.svg";
+import ContactImgL from "@/images/contact-l.svg";
 import { FiChevronLeft } from "react-icons/fi";
 import { Contact } from "../../../types";
 import { TbHistory, TbStar, TbStarFilled } from "react-icons/tb";
@@ -293,7 +293,7 @@ export default function Phone() {
                     ? name
                     : `${number}`}
                 </p>
-                <p className="text-xs text-gray-500">{number && number}</p>
+                <p className="text-sm text-gray-500">{number && number}</p>
               </div>
             </div>
             <VscChevronRight className="text-xl text-gray-500" />
@@ -345,7 +345,7 @@ export default function Phone() {
                 ? name
                 : `${number}`}
             </p>
-            <p className="mt-2 text-xs text-gray-500">{number}</p>
+            <p className="mt-2 text-sm text-gray-500">{number}</p>
           </div>
           <div className="mb-7 flex items-center justify-center">
             {number !== "" && (
@@ -376,7 +376,7 @@ export default function Phone() {
             </ActionButton>
           </div>
           {name === "" && number !== emergencyNumber && (
-            <div className="mb-4 rounded-md bg-gray-800/5 px-3 py-2 text-xs text-gray-800 dark:bg-gray-100/5 dark:text-gray-100">
+            <div className="mb-4 rounded-md bg-gray-800/5 px-3 py-2 text-sm text-gray-800 dark:bg-gray-100/5 dark:text-gray-100">
               <p className="inline">This caller is not in your contact list.</p>
               <p
                 className="ml-1 inline text-sky-600"
@@ -991,7 +991,7 @@ export default function Phone() {
                             </Avatar>
                           )}
                           {profilePicture && (
-                            <p className="mt-4 text-xs">
+                            <p className="mt-4 text-sm">
                               You can change the profile picture by clicking on
                               the picture.
                             </p>
@@ -1102,7 +1102,7 @@ export default function Phone() {
                               />
                               <div className="ml-3 flex flex-col">
                                 <p className="mb-1 font-bold">{nameValue}</p>
-                                <p className="text-xs text-gray-500">
+                                <p className="text-sm text-gray-500">
                                   {addCallerNumber}
                                 </p>
                               </div>
@@ -1257,7 +1257,7 @@ export default function Phone() {
                         }`}
                       >
                         {i.icon}
-                        <p className="mt-3 text-xs">{i.label}</p>
+                        <p className="mt-3 text-sm">{i.label}</p>
                       </ActionButton>
                     ))}
                   </div>
@@ -1315,7 +1315,7 @@ export default function Phone() {
                         }`}
                       >
                         {i.icon}
-                        <p className="mt-3 text-xs">{i.label}</p>
+                        <p className="mt-3 text-sm">{i.label}</p>
                       </ActionButton>
                     ))}
                   </div>

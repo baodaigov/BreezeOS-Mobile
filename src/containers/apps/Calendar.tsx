@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "@/store/hooks";
 import Hammer from "react-hammerjs";
-import ActionButton from "../../components/ActionButton";
+import ActionButton from "@/components/ActionButton";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import dayjs from "dayjs";
 import range from "lodash-es/range";

@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { setLocked } from "../store/reducers/global";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setLocked } from "@/store/reducers/global";
 import TimeObj from "./TimeObj";
 import DateObj from "./DateObj";
 import BatteryIcon from "./BatteryIcon";
@@ -23,8 +23,8 @@ export default function LockScreen() {
     >
       <div className="flex h-screen w-full flex-col justify-between bg-black/70 text-gray-100 backdrop-blur">
         <div className="flex flex-col items-center px-5 py-20">
-          <TimeObj className="mb-1 text-[70px] font-bold" />
-          <div className="flex items-center text-xs">
+          <TimeObj className="mb-1 text-[80px] font-bold" />
+          <div className="flex items-center text-sm">
             <DateObj />
             <div className="mx-5 h-4 w-[0.5px] bg-gray-100"></div>
             <div className="flex items-center">

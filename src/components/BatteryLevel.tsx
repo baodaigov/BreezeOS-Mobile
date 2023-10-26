@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 import { useBattery } from "react-use";
-import {
-  setBatteryCharging,
-  setBatteryLevel,
-} from "../store/reducers/settings";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { setBatteryCharging, setBatteryLevel } from "@/store/reducers/settings";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 interface BatteryLevelProps {
   className?: string;

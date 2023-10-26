@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import Wallpaper1 from "../../images/default.jpg";
+import Wallpaper1 from "@/images/default.jpg";
 
 interface globalState {
   wallpaper: any;
@@ -43,7 +43,7 @@ const initialState: globalState = {
     {
       name: "Photos",
       icon: "https://raw.githubusercontent.com/yeyushengfan258/Citrus-icon-theme/master/src/scalable/apps/accessories-image-viewer.svg",
-      id: "photos"
+      id: "photos",
     },
     {
       name: "Surface",

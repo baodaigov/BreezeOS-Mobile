@@ -1,4 +1,4 @@
-import { useAppSelector } from "../store/hooks";
+import { useAppSelector } from "@/store/hooks";
 import BatteryLevel from "./BatteryLevel";
 import { FaBolt } from "react-icons/fa6";
 import { FiWifi } from "react-icons/fi";

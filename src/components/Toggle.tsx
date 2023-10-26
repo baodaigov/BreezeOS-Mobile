@@ -25,5 +25,3 @@ export default function Toggle({ active, disabled, onToggle }: ToggleProps) {
     </div>
   );
 }
-
-//

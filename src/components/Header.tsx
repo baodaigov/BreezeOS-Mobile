@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { setPanelActive } from "../store/reducers/panel";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setPanelActive } from "@/store/reducers/panel";
 import Panel from "./Panel";
 import Status from "./Status";
 import TimeObj from "./TimeObj";
@@ -21,7 +21,7 @@ export default function Header() {
             direction="DIRECTION_DOWN"
           >
             <div
-              className={`absolute top-0 z-20 flex w-full flex-col text-center text-xs ${
+              className={`absolute top-0 z-20 flex w-full flex-col text-center text-sm ${
                 header.switchStyle ? "text-gray-800" : "text-gray-100"
               }`}
             >

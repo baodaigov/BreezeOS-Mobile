@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { openApp, setMenuActive } from "../store/reducers/global";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { openApp, setMenuActive } from "@/store/reducers/global";
 import { twMerge } from "tailwind-merge";
 
 export default function Menu() {
@@ -23,7 +23,7 @@ export default function Menu() {
 
   const App: React.FC<AppProps> = ({ icon, name, onClick }) => {
     return (
-      <div className="flex flex-col text-center items-center mb-12">
+      <div className="mb-12 flex flex-col items-center text-center">
         <img
           className="active:brightness-75"
           width={48}
@@ -31,7 +31,7 @@ export default function Menu() {
           src={icon}
           onClick={onClick}
         />
-        <p className="text-xs mt-2">{name}</p>
+        <p className="mt-2 text-sm">{name}</p>
       </div>
     );
   };
@@ -47,21 +47,21 @@ export default function Menu() {
   return (
     <div
       className={twMerge(
-        "z-20 absolute bg-center bg-no-repeat bg-cover h-screen w-full opacity-0 pointer-events-none transition-all ease-in",
-        menu.active && "opacity-100 pointer-events-auto"
+        "pointer-events-none absolute z-20 h-screen w-full bg-cover bg-center bg-no-repeat opacity-0 transition-all ease-in",
+        menu.active && "pointer-events-auto opacity-100",
       )}
       style={{ backgroundImage: `url(${wallpaper})` }}
     >
-      <div className="h-screen bg-black/60 text-gray-100 backdrop-blur-lg pb-16 flex flex-col">
-        <div className="flex justify-center w-full px-6 py-8 relative bottom-0">
+      <div className="flex h-screen flex-col bg-black/60 pb-16 text-gray-100 backdrop-blur-lg">
+        <div className="relative bottom-0 flex w-full justify-center px-6 py-8">
           <input
-            className="appearance-none border-none outline-none py-3 px-5 bg-zinc-100/5 flex items-center rounded-full text-xs w-56 text-zinc-100 transition-all duration-300 placeholder:text-zinc-100/20 focus:w-80"
+            className="flex w-56 appearance-none items-center rounded-full border-none bg-zinc-100/5 px-5 py-3 text-sm text-zinc-100 outline-none transition-all duration-300 placeholder:text-zinc-100/20 focus:w-80"
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div className="p-5 flex flex-col">
+        <div className="flex flex-col p-5">
           <div className="grid grid-cols-4 justify-between">
             {filterData.map((e) => (
               <App

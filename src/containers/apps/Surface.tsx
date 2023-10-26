@@ -1,14 +1,14 @@
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "@/store/hooks";
 import { twMerge } from "tailwind-merge";
-import SurfacePrivate from "../../icons/surface-private.svg";
-import SurfaceNoBg from "../../icons/surface-nobg.svg";
-import SurfaceNoBgD from "../../icons/surface-nobg-d.svg";
+import SurfacePrivate from "@/icons/surface-private.svg";
+import SurfaceNoBg from "@/icons/surface-nobg.svg";
+import SurfaceNoBgD from "@/icons/surface-nobg-d.svg";
 import React, { useEffect, useRef, useState } from "react";
 import { FiCheck, FiChevronLeft, FiChevronRight, FiPlus } from "react-icons/fi";
-import ActionButton from "../../components/ActionButton";
+import ActionButton from "@/components/ActionButton";
 import { HiOutlineGlobe, HiOutlineMenu } from "react-icons/hi";
 import { TbBoxMultiple } from "react-icons/tb";
-import { openUrl, setSearchEngine } from "../../store/reducers/apps/surface";
+import { openUrl, setSearchEngine } from "@/store/reducers/apps/surface";
 import { LuRotateCcw } from "react-icons/lu";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ export default function Surface() {
   const url = useAppSelector((state) => state.surface.url);
   const wifi = useAppSelector((state) => state.settings.wifi);
   const [appearance, setAppearance] = useState<string>("dark");
-  const [splashScreen, setSplashScreen] = useState<boolean>(false);
+  const [splashScreen, setSplashScreen] = useState<boolean>(true);
   const [privateMode, setPrivateMode] = useState<boolean>(false);
   const [menuDisplayed, setDisplayMenu] = useState<boolean>(false);
   const [websiteMenuDisplayed, setDisplayWebsiteMenu] =
@@ -169,7 +169,7 @@ export default function Surface() {
         <div className="flex items-center">
           <div className="flex flex-col">
             <p className="mb-1 text-lg">{title}</p>
-            <p className="text-xs text-zinc-500">{url}</p>
+            <p className="text-sm text-zinc-500">{url}</p>
           </div>
         </div>
         <VscChevronRight className="text-xl text-zinc-700" />
@@ -311,7 +311,7 @@ export default function Surface() {
             <div
               className={twMerge(
                 "absolute bottom-0 left-0 right-0 top-0 m-auto flex h-full w-full items-center justify-center bg-blue-600 transition-all duration-500",
-                !splashScreen && "bottom-24 h-28 w-28 rounded-full",
+                !splashScreen && "bottom-24 h-32 w-32 rounded-full",
                 privateMode && "bg-zinc-950",
               )}
             >
@@ -320,7 +320,7 @@ export default function Surface() {
                   src={SurfacePrivate}
                   className={twMerge(
                     "h-40 w-40 transition-all duration-500",
-                    !splashScreen && "h-28 w-28",
+                    !splashScreen && "h-32 w-32",
                   )}
                 />
               ) : (
@@ -328,7 +328,7 @@ export default function Surface() {
                   src="https://raw.githubusercontent.com/breezeos/icons/main/breezeos-mobile/icons/surface.svg"
                   className={twMerge(
                     "h-40 w-40 transition-all duration-500",
-                    !splashScreen && "h-28 w-28",
+                    !splashScreen && "h-32 w-32",
                   )}
                 />
               )}
